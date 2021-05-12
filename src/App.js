@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import Amplify from 'aws-amplify'
+import awsconfig from './aws-exports'
 import './scss/style.scss';
+
+Amplify.configure(awsconfig)
 
 const loading = (
   <div className="pt-3 text-center">
@@ -23,7 +27,6 @@ class App extends Component {
   render() {
     return (
       <HashRouter>
-      {/* <AmplifySignOut /> */}
           <React.Suspense fallback={loading}>
             <Switch>
               <Route exact path="/login" name="Login Page" render={props => <Login {...props}/>} />
@@ -38,5 +41,5 @@ class App extends Component {
   }
 }
 
-// export default withAuthenticator(App);
-export default App;
+export default withAuthenticator(App);
+// export default App;

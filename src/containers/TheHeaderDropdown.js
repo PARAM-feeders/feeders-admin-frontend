@@ -8,6 +8,7 @@ import {
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import { AmplifySignOut } from '@aws-amplify/ui-react';
 
 const TheHeaderDropdown = () => {
   return (
@@ -82,7 +83,7 @@ const TheHeaderDropdown = () => {
         <CDropdownItem divider />
         <CDropdownItem>
           <CIcon name="cil-lock-locked" className="mfe-2" />
-          Lock Account
+          <AmplifySignOut />
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

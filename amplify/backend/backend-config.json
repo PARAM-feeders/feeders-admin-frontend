@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "feedersbefc2291": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
