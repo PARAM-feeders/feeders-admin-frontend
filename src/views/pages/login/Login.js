@@ -17,11 +17,6 @@ import { Auth } from 'aws-amplify';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-const intialFormState = {
-  username : '', password : ''
-};
-
-
 const Login = () => {
   const history = useHistory();
   const [userName, setUserName] = useState("");
