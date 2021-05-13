@@ -1,16 +1,28 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
   CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg
+  CImg,
+  CButton
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { AmplifySignOut } from '@aws-amplify/ui-react';
+import { Auth } from 'aws-amplify';
+import { Link, useHistory } from 'react-router-dom';
 
 const TheHeaderDropdown = () => {
+  const history = useHistory();
+  async function signOut() {
+    try {
+    await Auth.signOut({ global: true });
+        history.push('/')
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+}
+
   return (
     <CDropdown
       inNav
@@ -83,7 +95,7 @@ const TheHeaderDropdown = () => {
         <CDropdownItem divider />
         <CDropdownItem>
           <CIcon name="cil-lock-locked" className="mfe-2" />
-          <AmplifySignOut />
+         <CButton onClick={signOut}>Signout</CButton>
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
