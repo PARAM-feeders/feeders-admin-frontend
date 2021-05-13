@@ -1,9 +1,7 @@
+import Amplify from 'aws-amplify';
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import { Authenticator } from '@aws-amplify/ui-react';
-import Amplify from 'aws-amplify'
-import awsconfig from './aws-exports'
+import awsconfig from './aws-exports';
 import './scss/style.scss';
 
 Amplify.configure(awsconfig)

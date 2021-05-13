@@ -1,6 +1,4 @@
-import React, {useState } from 'react'
-import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom'
+import CIcon from '@coreui/icons-react';
 import {
   CButton,
   CCard,
@@ -14,9 +12,10 @@ import {
   CInputGroupPrepend,
   CInputGroupText,
   CRow
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import {Auth} from 'aws-amplify';
+} from '@coreui/react';
+import { Auth } from 'aws-amplify';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 const intialFormState = {
   username : '', password : ''
