@@ -1,10 +1,7 @@
-import Amplify from 'aws-amplify';
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import awsconfig from './aws-exports';
 import './scss/style.scss';
 
-Amplify.configure(awsconfig)
 
 const loading = (
   <div className="pt-3 text-center">
