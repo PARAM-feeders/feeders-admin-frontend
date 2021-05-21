@@ -9,18 +9,11 @@ import {
   CButton
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { Auth } from 'aws-amplify';
 import { Link, useHistory } from 'react-router-dom';
 
 const TheHeaderDropdown = () => {
-  const history = useHistory();
   async function signOut() {
-    try {
-    await Auth.signOut({ global: true });
-        history.push('/')
-    } catch (error) {
-        console.log('error signing out: ', error);
-    }
+  
 }
 
   return (

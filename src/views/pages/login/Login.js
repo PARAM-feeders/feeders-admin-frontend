@@ -13,7 +13,6 @@ import {
   CInputGroupText,
   CRow
 } from '@coreui/react';
-import { Auth } from 'aws-amplify';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -23,13 +22,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   async function signIn(){
-    try {
-      const user = await Auth.signIn(userName, password);
-      console.log("user", user);
-      history.push('/dashboard')
-  } catch (error) {
-      console.log('error signing in', error);
-  }
+   
   }
 
   return (
