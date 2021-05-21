@@ -1,5 +1,4 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import CIcon from '@coreui/icons-react';
 import {
   CButton,
   CCard,
@@ -13,10 +12,26 @@ import {
   CInputGroupPrepend,
   CInputGroupText,
   CRow
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+} from '@coreui/react';
+import { Auth } from 'aws-amplify';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 
 const Login = () => {
+  const history = useHistory();
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function signIn(){
+    try {
+      const user = await Auth.signIn(userName, password);
+      console.log("user", user);
+      history.push('/dashboard')
+  } catch (error) {
+      console.log('error signing in', error);
+  }
+  }
+
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
@@ -34,7 +49,7 @@ const Login = () => {
                           <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="text" placeholder="Username" autoComplete="username" />
+                      <CInput type="text" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Username" autoComplete="username" />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -42,11 +57,11 @@ const Login = () => {
                           <CIcon name="cil-lock-locked" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="password" placeholder="Password" autoComplete="current-password" />
+                      <CInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" />
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" className="px-4">Login</CButton>
+                        <CButton onClick={signIn} color="primary" className="px-4" >Login</CButton>
                       </CCol>
                       <CCol xs="6" className="text-right">
                         <CButton color="link" className="px-0">Forgot password?</CButton>
