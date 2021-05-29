@@ -34,6 +34,7 @@ class App extends Component {
         <React.Suspense fallback={loading}>
           <Switch>
             <Route
+              exact
               path="/dashboard"
               name="Dashboard"
               render={(props) =>
@@ -59,7 +60,7 @@ class App extends Component {
               path="/"
               name="Home"
               render={(props) =>
-                requireAuth() ? <Home /> : <Redirect to="/login" />
+                <Home />
               }
             />
           </Switch>
