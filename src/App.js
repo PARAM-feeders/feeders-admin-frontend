@@ -34,8 +34,8 @@ class App extends Component {
         <React.Suspense fallback={loading}>
           <Switch>
             <Route
-              exact
-              path="/dashboard"
+            exact
+             path="/dashboard"
               name="Dashboard"
               render={(props) =>
                 requireAdmin() ? (
@@ -45,22 +45,35 @@ class App extends Component {
                 )
               }
             />
+             <Route
+            exact
+             path="/theme/colors"
+              name="Themes"
+              render={(props) =>
+                requireAdmin() ? (
+                  <TheLayout {...props} />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
             <Route
+            exact
               path="/login"
               name="Login Page"
               render={(props) => <Login />}
             />
             <Route
+            exact
               path="/register"
               name="Register Page"
               render={(props) => <Register {...props} />}
             />
             <Route
-              exact
               path="/"
               name="Home"
               render={(props) =>
-                <Home />
+               <Home />
               }
             />
           </Switch>
