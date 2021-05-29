@@ -37,19 +37,15 @@ class App extends Component {
               path="/dashboard"
               name="Dashboard"
               render={(props) =>
-                requireAdmin() ? <TheLayout {...props} /> : <Redirect to="/" />
+                requireAdmin() ? (
+                  <TheLayout {...props} />
+                ) : (
+                  <Redirect to="/login" />
+                )
               }
             />
             <Route
-              path="/home"
-              name="Home"
-              render={(props) =>
-                requireAuth() ? <Home /> : <Redirect to="/" />
-              }
-            />
-            <Route
-              exact
-              path="/"
+              path="/login"
               name="Login Page"
               render={(props) => <Login />}
             />
@@ -57,6 +53,14 @@ class App extends Component {
               path="/register"
               name="Register Page"
               render={(props) => <Register {...props} />}
+            />
+            <Route
+              exact
+              path="/"
+              name="Home"
+              render={(props) =>
+                requireAuth() ? <Home /> : <Redirect to="/login" />
+              }
             />
           </Switch>
         </React.Suspense>

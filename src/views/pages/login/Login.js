@@ -20,7 +20,7 @@ import { Link, useHistory } from "react-router-dom";
 const Login = () => {
   const history = useHistory();
   const [userName, setUserName] = useState("");
-  const [userPassword, setPassword] = useState("");
+  const [userPassword, setUserPassword] = useState("");
   // ToDo: Show error message in toast message
   const [loginError, setLoginError] = useState("");
 
@@ -38,7 +38,7 @@ const Login = () => {
           return;
         }
         auth.finishAuthentication(result.token);
-        history.push("/home");
+        auth.isAdmin() ? history.push("/dashboard") : history.push("/");
       });
     }
   };
@@ -77,7 +77,7 @@ const Login = () => {
                       <CInput
                         type="password"
                         value={userPassword}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => setUserPassword(e.target.value)}
                         placeholder="Password"
                         autoComplete="current-password"
                       />
