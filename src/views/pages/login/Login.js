@@ -1,4 +1,5 @@
-import CIcon from '@coreui/icons-react';
+import AuthService from "../../../utils/AuthService";
+import CIcon from "@coreui/icons-react";
 import {
   CButton,
   CCard,
@@ -11,19 +12,36 @@ import {
   CInputGroup,
   CInputGroupPrepend,
   CInputGroupText,
-  CRow
-} from '@coreui/react';
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+  CRow,
+} from "@coreui/react";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = () => {
   const history = useHistory();
   const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userPassword, setPassword] = useState("");
+  // ToDo: Show error message in toast message
+  const [loginError, setLoginError] = useState("");
 
-  async function signIn(){
-   
-  }
+  const auth = new AuthService();
+
+  const onLoginSubmit = (event) => {
+    event.preventDefault();
+    const user = userName;
+    const password = userPassword;
+
+    if (user && password) {
+      auth.login(user, password).then((result) => {
+        if (!result.token) {
+          setLoginError(result.message);
+          return;
+        }
+        auth.finishAuthentication(result.token);
+        history.push("/home");
+      });
+    }
+  };
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
@@ -42,7 +60,13 @@ const Login = () => {
                           <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="text" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Username" autoComplete="username" />
+                      <CInput
+                        type="text"
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                        placeholder="Username"
+                        autoComplete="username"
+                      />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -50,27 +74,54 @@ const Login = () => {
                           <CIcon name="cil-lock-locked" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" />
+                      <CInput
+                        type="password"
+                        value={userPassword}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        autoComplete="current-password"
+                      />
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton onClick={signIn} color="primary" className="px-4" >Login</CButton>
+                        <CButton
+                          onClick={onLoginSubmit}
+                          color="primary"
+                          className="px-4"
+                        >
+                          Login
+                        </CButton>
                       </CCol>
                       <CCol xs="6" className="text-right">
-                        <CButton color="link" className="px-0">Forgot password?</CButton>
+                        <CButton color="link" className="px-0">
+                          Forgot password?
+                        </CButton>
                       </CCol>
                     </CRow>
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
+              <CCard
+                className="text-white bg-primary py-5 d-md-down-none"
+                style={{ width: "44%" }}
+              >
                 <CCardBody className="text-center">
                   <div>
                     <h2>Sign up</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua.</p>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna
+                      aliqua.
+                    </p>
                     <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
+                      <CButton
+                        color="primary"
+                        className="mt-3"
+                        active
+                        tabIndex={-1}
+                      >
+                        Register Now!
+                      </CButton>
                     </Link>
                   </div>
                 </CCardBody>
@@ -80,7 +131,7 @@ const Login = () => {
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
