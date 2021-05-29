@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import AuthService from "../utils/AuthService";
 import {
   CBadge,
   CDropdown,
@@ -12,9 +13,14 @@ import CIcon from '@coreui/icons-react'
 import { Link, useHistory } from 'react-router-dom';
 
 const TheHeaderDropdown = () => {
-  async function signOut() {
-  
-}
+  const history = useHistory();
+  const auth = new AuthService();
+
+  const signOut = (event) => {
+    event.preventDefault();
+    auth.logout();
+    history.push('/')
+  };
 
   return (
     <CDropdown
@@ -86,9 +92,9 @@ const TheHeaderDropdown = () => {
           <CBadge color="primary" className="mfs-auto">42</CBadge>
         </CDropdownItem>
         <CDropdownItem divider />
-        <CDropdownItem>
+        <CDropdownItem onClick={signOut}>
           <CIcon name="cil-lock-locked" className="mfe-2" />
-         <CButton onClick={signOut}>Signout</CButton>
+          Signout
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>
