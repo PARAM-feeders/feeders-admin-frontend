@@ -25,7 +25,7 @@ const loading = (
 const TheLayout = React.lazy(() => import("./containers/TheLayout"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
-const Home = React.lazy(() => import("./views/pages/home/Home"));
+const Home = React.lazy(() => import("./frontend-containers/Layout"));
 
 class App extends Component {
   render() {
