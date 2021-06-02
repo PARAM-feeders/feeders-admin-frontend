@@ -1,9 +1,8 @@
 import { EventEmitter } from "events";
-import { isTokenExpired } from "./jwtHelper";
-import { browserHistory } from "react-router";
 import jwtDecode from "jwt-decode";
-
 import { API_URL } from "./constants";
+import { isTokenExpired } from "./jwtHelper";
+
 
 export default class AuthService extends EventEmitter {
   constructor() {

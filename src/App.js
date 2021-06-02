@@ -76,6 +76,7 @@ class App extends Component {
                <Home />
               }
             />
+            <Redirect to="/login" />
           </Switch>
         </React.Suspense>
       </HashRouter>
