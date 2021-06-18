@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import AuthService from "../utils/AuthService";
 import {
   CBadge,
@@ -11,7 +11,7 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { Link, useHistory } from 'react-router-dom';
-
+import { useAuth0 } from "@auth0/auth0-react";
 const TheHeaderDropdown = () => {
   const history = useHistory();
   const auth = new AuthService();
@@ -21,6 +21,7 @@ const TheHeaderDropdown = () => {
     auth.logout();
     history.push('/')
   };
+  const { logout } = useAuth0();
 
   return (
     <CDropdown
@@ -38,15 +39,15 @@ const TheHeaderDropdown = () => {
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
-        <CDropdownItem
+        {/* <CDropdownItem
           header
           tag="div"
           color="light"
           className="text-center"
         >
           <strong>Account</strong>
-        </CDropdownItem>
-        <CDropdownItem>
+        </CDropdownItem> 
+         <CDropdownItem>
           <CIcon name="cil-bell" className="mfe-2" />
           Updates
           <CBadge color="info" className="mfs-auto">42</CBadge>
@@ -65,7 +66,7 @@ const TheHeaderDropdown = () => {
           <CIcon name="cil-comment-square" className="mfe-2" />
           Comments
           <CBadge color="warning" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
+        </CDropdownItem> */}
         <CDropdownItem
           header
           tag="div"
@@ -81,7 +82,7 @@ const TheHeaderDropdown = () => {
           <CIcon name="cil-settings" className="mfe-2" />
           Settings
         </CDropdownItem>
-        <CDropdownItem>
+        {/* <CDropdownItem>
           <CIcon name="cil-credit-card" className="mfe-2" />
           Payments
           <CBadge color="secondary" className="mfs-auto">42</CBadge>
@@ -90,9 +91,9 @@ const TheHeaderDropdown = () => {
           <CIcon name="cil-file" className="mfe-2" />
           Projects
           <CBadge color="primary" className="mfs-auto">42</CBadge>
-        </CDropdownItem>
+        </CDropdownItem> */}
         <CDropdownItem divider />
-        <CDropdownItem onClick={signOut}>
+        <CDropdownItem onClick={() => logout({ returnTo: window.location.origin })}>
           <CIcon name="cil-lock-locked" className="mfe-2" />
           Signout
         </CDropdownItem>
