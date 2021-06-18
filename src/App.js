@@ -1,19 +1,18 @@
 import React, { Component } from "react";
-import AuthService from "./utils/AuthService";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-
+import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
+import "./assets/css/style.css";
 import "./scss/style.scss";
 
-const auth = new AuthService();
+
 
 // onEnter callback to validate authentication in private routes
-const requireAuth = () => {
-  return auth.isAuthenticated() ? true : false;
-};
+// const requireAuth = () => {
+//   return auth.isAuthenticated() ? true : false;
+// };
 
-const requireAdmin = () => {
-  return requireAuth() && auth.isAdmin() ? true : false;
-};
+// const requireAdmin = () => {
+//   return requireAuth() && auth.isAdmin() ? true : false;
+// };
 
 const loading = (
   <div className="pt-3 text-center">
@@ -38,11 +37,7 @@ class App extends Component {
              path="/dashboard"
               name="Dashboard"
               render={(props) =>
-                requireAdmin() ? (
-                  <TheLayout {...props} />
-                ) : (
-                  <Redirect to="/login" />
-                )
+                <TheLayout {...props} />
               }
             />
              <Route
@@ -50,11 +45,12 @@ class App extends Component {
              path="/theme/colors"
               name="Themes"
               render={(props) =>
-                requireAdmin() ? (
-                  <TheLayout {...props} />
-                ) : (
-                  <Redirect to="/login" />
-                )
+                <TheLayout {...props} />
+                // requireAdmin() ? (
+                //   <TheLayout {...props} />
+                // ) : (
+                //   <Redirect to="/login" />
+                // )
               }
             />
             <Route
