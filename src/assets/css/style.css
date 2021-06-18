@@ -1,0 +1,12 @@
+body{
+    height: 200%;
+    overflow: visible;
+}
+.carousel-item{
+    height: 98vh;
+}
+.h150{
+    height: 50vh;
+    text-align: center;
+    padding: 3em;
+}
