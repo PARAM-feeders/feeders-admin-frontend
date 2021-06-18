@@ -2,7 +2,7 @@ import React from 'react';
 
 const Home = React.lazy(() => import('./views/pages/home/Home'));
 const About = React.lazy(() => import('./views/pages/about/About'));
-const Profile = React.lazy(() => import('./views/pages/profile/Profile'));
+const Profile = React.lazy(() => import('./components/Profile'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home', component : Home },
