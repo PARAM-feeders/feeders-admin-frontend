@@ -40,6 +40,14 @@ class App extends Component {
                 <TheLayout {...props} />
               }
             />
+            <Route
+            
+             path="/users"
+              name="Users"
+              render={(props) =>
+                <TheLayout {...props} />
+              }
+            />
              <Route
             exact
              path="/theme/colors"
