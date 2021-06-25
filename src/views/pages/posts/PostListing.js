@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Post from "./Post";
+import { Link, useHistory } from "react-router-dom";
+
+
+
 
 
 const Posts = () => {
@@ -30,14 +34,13 @@ const Posts = () => {
     <div className="container" id="post">
       <div className="row justify-content-between mb-4">
         <h2>Posts</h2>
-        <button className="btn btn-round btn-danger " type="button">
+        <Link to="/create-post">  <button className="btn btn-round btn-danger " type="button">
           Create Post
-        </button>
+        </button></Link>
       </div>
 
       <div className="row">
         {posts && posts.map((post, index) => {
-          console.log("index", index)
           return <Post list={post} ind={index} />
         })}
 

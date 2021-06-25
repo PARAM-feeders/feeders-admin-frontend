@@ -1,16 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CIcon } from "@coreui/icons-react";
-
+import { Link, useHistory } from "react-router-dom";
 const CreatePost = () => {
+
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [location, setLocations] = useState("");
+  const [description, setDescription] = useState("");
+
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const history = useHistory();
+  function SaveForm() {
+    console.log(name, image, description, location)
+    fetch(`${apiUrl}/posts`, {
+      method: 'post',
+      headers: { "Content-Type": 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        "name": name,
+        "description": description,
+        "image": image,
+        "location": location
+      })
+    }).then(res => res.json())
+      .then(
+        (result) => {
+          history.push("/posts")
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+
+  }
+
   return (
     <div id="create-post">
-    <h2>Create Post</h2>
+      <h2>Create Post</h2>
       <form>
         <div className="form-outline mb-4">
           <label className="form-label" for="title">
             Title
           </label>
-          <input type="text" id="title" className="form-control" required placeholder="Title"/>
+          <input type="text" id="title" className="form-control" value={name} required placeholder="Title" onChange={(e) => setName(e.target.value)} />
         </div>
 
         <div className="form-outline mb-4">
@@ -23,6 +54,8 @@ const CreatePost = () => {
             rows="4"
             required
             placeholder="Description.."
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
 
@@ -30,14 +63,14 @@ const CreatePost = () => {
           <label className="form-label" for="location">
             Location
           </label>
-          <input type="text" id="location" className="form-control" required placeholder="Location"/>
+          <input type="text" id="location" className="form-control" value={location} required onChange={(e) => setLocations(e.target.value)} placeholder="Location" />
         </div>
 
         <div className="form-outline mb-4">
           <label className="form-label" for="location">
             Image URL
           </label>
-          <input type="text" id="location" className="form-control" required placeholder="Image URL"/>
+          <input type="text" id="location" className="form-control" value={image} required placeholder="Image URL" onChange={(e) => setImage(e.target.value)} />
         </div>
 
         {/* <div class="form-outline mb-4">
@@ -50,7 +83,7 @@ const CreatePost = () => {
           />
         </div>*/}
 
-        <button type="submit" className="btn btn-primary btn-block mb-4">
+        <button type="submit" className="btn btn-primary btn-block mb-4" onClick={() => SaveForm()}>
           Submit
         </button>
       </form>

@@ -13,7 +13,6 @@ const PostDetail = () => {
         .then(res => res.json())
         .then(
           (result) => {
-            console.log(result)
             setUserPostDetails(result);
           },
           (error) => {
