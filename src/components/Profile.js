@@ -74,8 +74,8 @@ const Profile = () => {
   // console.log(user);
   return (
     isAuthenticated && (
-      <div>
-        <img src={user.picture} alt={user.name} />
+      <div id="profile" className="d-flex flex-column justify-content-center align-items-center">
+        <img src={user.picture} alt={user.name}  class="rounded-circle mb-4"/>
         <h2>{user.name}</h2>
         <p>{user.email}</p>
         <h3>User Metadata</h3>
