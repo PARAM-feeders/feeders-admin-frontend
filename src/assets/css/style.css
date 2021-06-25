@@ -10,3 +10,18 @@ body{
     text-align: center;
     padding: 3em;
 }
+
+/* Post  */
+
+ #post, #post-detail{
+     margin: 5rem;
+ }
+
+ .card-location .icon{
+    margin-right: 5px;
+    margin-bottom: 4px;
+ }
+
+ #post-detail .product_meta span{
+     font-weight: 600;
+ }
