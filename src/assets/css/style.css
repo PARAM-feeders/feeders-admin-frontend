@@ -13,7 +13,7 @@ body{
 
 /* Post  */
 
- #post, #post-detail, #create-post{
+ #post, #post-detail, #create-post, #profile{
      margin: 5rem;
  }
 
@@ -33,3 +33,5 @@ body{
  #create-post .btn{
     width: auto;
  }
+
+ 
