@@ -2,6 +2,7 @@ import React from "react";
 import Post from "./Post";
 
 const Posts = () => {
+
   return (
     <div className="container" id="post">
       <div className="row justify-content-between mb-4">

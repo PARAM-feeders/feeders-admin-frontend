@@ -1,31 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CIcon } from '@coreui/icons-react';
-
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useHistory } from "react-router-dom";
 const Post = () => {
+
+  // const { user, isAuthenticated, getAccessTokenSilently, getAccessTokenWithPopup, isLoading } =
+  //   useAuth0();
+
+  const [posts, setUserPosts] = useState(null);
+  const apiUrl = process.env.REACT_APP_API_URL;
+  useEffect(() => {
+    const fetchData = async () => {
+     await fetch(`${apiUrl}/posts`)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            // console.log(result)
+            setUserPosts(result);
+          },
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          (error) => {
+            console.log(error);
+          }
+        )
+    }
+    fetchData();
+  }, []);
+
   return (
-            <div className="col-lg-4 mb-4">
-              <div className="card">
-                <img
-                  src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                  alt=""
-                  className="card-img-top"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">Sunset</h5>
-                  <p className="card-location">
-                  <CIcon name="cil-location-pin" className="icon"/>Pinebush, Cambridge</p>
-                  <p className="card-text">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut
-                    eum similique repellat a laborum, rerum voluptates ipsam eos
-                    quo tempore iusto dolore modi dolorum in pariatur. Incidunt
-                    repellendus praesentium quae!
-                  </p>
-                  <a href="#/post-details" className="btn btn-outline-success btn-sm">
-                    Read More
-                  </a>
-                </div>
-              </div>
+    <div>
+      {posts && posts.map((post, index) => {
+        return <div className="col-lg-4 mb-4" key={index}>
+          <div className="card">
+            <img
+              src={post.image}
+              alt=""
+              className="card-img-top"
+            />
+            <div className="card-body">
+              <h5 className="card-title">{post.name}</h5>
+              <p className="card-location">
+                <CIcon name="cil-location-pin" className="icon" />{post.location}</p>
+              <p className="card-text">
+                {post.description}
+              </p>
+              <Link to={"/post/"+post._id} className="btn btn-outline-success btn-sm">
+                Read More
+              </Link>
             </div>
+          </div>
+        </div>
+      })}
+    </div>
   );
 };
 
