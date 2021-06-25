@@ -13,7 +13,7 @@ body{
 
 /* Post  */
 
- #post, #post-detail{
+ #post, #post-detail, #create-post{
      margin: 5rem;
  }
 
@@ -24,4 +24,12 @@ body{
 
  #post-detail .product_meta span{
      font-weight: 600;
+ }
+
+ #create-post form{
+     width: 50%;
+ }
+
+ #create-post .btn{
+    width: auto;
  }
