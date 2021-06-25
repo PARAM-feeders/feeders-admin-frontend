@@ -2,58 +2,37 @@ import React, { useEffect, useState } from "react";
 import { CIcon } from '@coreui/icons-react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useHistory } from "react-router-dom";
-const Post = () => {
+const Post = props => {
+  console.log("props", props);
 
-  // const { user, isAuthenticated, getAccessTokenSilently, getAccessTokenWithPopup, isLoading } =
-  //   useAuth0();
+  const [post, setUserPosts] = useState(null);
 
-  const [posts, setUserPosts] = useState(null);
-  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
-    const fetchData = async () => {
-     await fetch(`${apiUrl}/posts`)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            // console.log(result)
-            setUserPosts(result);
-          },
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
-          (error) => {
-            console.log(error);
-          }
-        )
-    }
-    fetchData();
+    setUserPosts(props && props);
   }, []);
 
   return (
-    <div>
-      {posts && posts.map((post, index) => {
-        return <div className="col-lg-4 mb-4" key={index}>
-          <div className="card">
-            <img
-              src={post.image}
-              alt=""
-              className="card-img-top"
-            />
-            <div className="card-body">
-              <h5 className="card-title">{post.name}</h5>
-              <p className="card-location">
-                <CIcon name="cil-location-pin" className="icon" />{post.location}</p>
-              <p className="card-text">
-                {post.description}
-              </p>
-              <Link to={"/post/"+post._id} className="btn btn-outline-success btn-sm">
-                Read More
-              </Link>
-            </div>
-          </div>
+    <div className="col-lg-4 mb-4" key={post?.ind}>
+      <div className="card">
+        <img
+          src={post?.list.image}
+          alt=""
+          className="card-img-top"
+        />
+        <div className="card-body">
+          <h5 className="card-title">{post?.list.name}</h5>
+          <p className="card-location">
+            <CIcon name="cil-location-pin" className="icon" />{post?.list.location}</p>
+          <p className="card-text">
+            {post?.list.description}
+          </p>
+          <Link to={"/post/" + post?.list._id} className="btn btn-outline-success btn-sm">
+            Read More
+          </Link>
         </div>
-      })}
+      </div>
     </div>
+
   );
 };
 

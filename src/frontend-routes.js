@@ -3,7 +3,7 @@ import React from 'react';
 const Home = React.lazy(() => import('./views/pages/home/Home'));
 const About = React.lazy(() => import('./views/pages/about/About'));
 const Profile = React.lazy(() => import('./components/Profile'));
-const Posts = React.lazy(() => import('./views/pages/posts/Posts'));
+const Posts = React.lazy(() => import('./views/pages/posts/PostListing'));
 const PostDetail = React.lazy(() => import('./views/pages/posts/PostDetail'));
 
 const routes = [
