@@ -22,6 +22,7 @@ const HeaderComponent = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="#about">About</Nav.Link>
+                        <Nav.Link href="#posts">Posts</Nav.Link>
                         {isAuthenticated && (
                             <Nav.Link href="#profile">Profile</Nav.Link>
                         )}
