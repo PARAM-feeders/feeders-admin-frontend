@@ -11,7 +11,7 @@ const routes = [
   { path: '/about', exact: true, name: 'About', component : About },
   { path: '/profile', exact: true, name: 'Profile', component : Profile, isAuth : "true" },
   { path: '/posts', exact: true, name: 'Posts', component : Posts },
-  { path: '/post-details', exact: true, name: 'PostDetail', component : PostDetail },
+  { path: '/post/:id', exact: true, name: 'PostDetail', component : PostDetail },
 ];
   
 export default routes;
