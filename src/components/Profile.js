@@ -5,7 +5,6 @@ import React, { useEffect, useState } from "react";
 const Profile = () => {
   const { user, isAuthenticated, getAccessTokenSilently,getAccessTokenWithPopup, isLoading } =
     useAuth0();
-    console.log(" useAuth0()",  useAuth0())
 
   const [userMetadata, setUserMetadata] = useState(null);
 
