@@ -1,31 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CIcon } from '@coreui/icons-react';
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useHistory } from "react-router-dom";
+const Post = props => {
+  console.log("props", props);
 
-const Post = () => {
+  const [post, setUserPosts] = useState(null);
+
+  useEffect(() => {
+    setUserPosts(props && props);
+  }, []);
+
   return (
-            <div className="col-lg-4 mb-4">
-              <div className="card">
-                <img
-                  src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                  alt=""
-                  className="card-img-top"
-                />
-                <div className="card-body">
-                  <h5 className="card-title">Sunset</h5>
-                  <p className="card-location">
-                  <CIcon name="cil-location-pin" className="icon"/>Pinebush, Cambridge</p>
-                  <p className="card-text">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut
-                    eum similique repellat a laborum, rerum voluptates ipsam eos
-                    quo tempore iusto dolore modi dolorum in pariatur. Incidunt
-                    repellendus praesentium quae!
-                  </p>
-                  <a href="#/post-details" className="btn btn-outline-success btn-sm">
-                    Read More
-                  </a>
-                </div>
-              </div>
-            </div>
+    <div className="col-lg-4 mb-4" key={post?.ind}>
+      <div className="card">
+        <img
+          src={post?.list.image}
+          alt=""
+          className="card-img-top"
+        />
+        <div className="card-body">
+          <h5 className="card-title">{post?.list.name}</h5>
+          <p className="card-location">
+            <CIcon name="cil-location-pin" className="icon" />{post?.list.location}</p>
+          <p className="card-text">
+            {post?.list.description}
+          </p>
+          <Link to={"/post/" + post?.list._id} className="btn btn-outline-success btn-sm">
+            Read More
+          </Link>
+        </div>
+      </div>
+    </div>
+
   );
 };
 
