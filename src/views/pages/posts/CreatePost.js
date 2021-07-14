@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { CIcon } from "@coreui/icons-react";
 import { Link, useHistory } from "react-router-dom";
+
+import AuthService from "../../../utils/AuthService"
 const CreatePost = () => {
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [location, setLocations] = useState("");
   const [description, setDescription] = useState("");
-
+  const auth = new AuthService();
   const apiUrl = process.env.REACT_APP_API_URL;
   const history = useHistory();
   function SaveForm() {
     console.log(name, image, description, location)
     fetch(`${apiUrl}/posts`, {
       method: 'post',
-      headers: { "Content-Type": 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
+      headers: { "Content-Type": 'application/json',
+      "x-auth-token": auth.getToken()
+     },
+      body:JSON.stringify({
         "name": name,
         "description": description,
         "image": image,
@@ -24,12 +28,17 @@ const CreatePost = () => {
     }).then(res => res.json())
       .then(
         (result) => {
+          if (!result.success) {
+            throw (result);
+          }
           history.push("/posts")
         },
         (error) => {
           console.log(error);
         }
-      );
+      ).catch(err => {
+        console.log(err);
+      });
 
   }
 

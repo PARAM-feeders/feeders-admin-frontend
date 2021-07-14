@@ -155,6 +155,7 @@ const Toaster = () => {
                 >
                   {
                     toasters[toasterKey].map((toast, key)=>{
+                      {console.log(toast)}
                     return(
                       <CToast
                         key={'toast' + key}

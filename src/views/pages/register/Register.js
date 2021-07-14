@@ -30,11 +30,11 @@ const Register = () => {
 
   const onSignupSubmit = (event) => {
     event.preventDefault();
-    const username = userName;
+    const name = userName;
     const email = userEmail;
     const password = userPassword;
-    if (username && email && password) {
-      auth.signup(username, email, password).then((result) => {
+    if (name && email && password) {
+      auth.signup(name, email, password).then((result) => {
         if (!result.token) {
           setRegisterError(result.message);
           return;
@@ -113,20 +113,7 @@ const Register = () => {
                   </CButton>
                 </CForm>
               </CCardBody>
-              <CCardFooter className="p-4">
-                <CRow>
-                  <CCol xs="12" sm="6">
-                    <CButton className="btn-facebook mb-1" block>
-                      <span>facebook</span>
-                    </CButton>
-                  </CCol>
-                  <CCol xs="12" sm="6">
-                    <CButton className="btn-twitter mb-1" block>
-                      <span>twitter</span>
-                    </CButton>
-                  </CCol>
-                </CRow>
-              </CCardFooter>
+              
             </CCard>
           </CCol>
         </CRow>

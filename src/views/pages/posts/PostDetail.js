@@ -4,42 +4,60 @@ import { useParams } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Link, useHistory } from "react-router-dom";
-
+import AuthService from "../../../utils/AuthService"
 const PostDetail = () => {
+  const auth = new AuthService();
   const { id } = useParams();
   const history = useHistory();
   console.log("id", id);
 
   const [postDetails, setUserPostDetails] = useState(null);
+  
   const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(`${apiUrl}/post/${id}`)
+      await fetch(`${apiUrl}/posts/${id}`, {
+        method: 'get',
+        headers: { "Content-Type": 'application/json',
+        "x-auth-token": auth.getToken()
+       }})
         .then((res) => res.json())
         .then(
           (result) => {
-            setUserPostDetails(result);
-          },
-          (error) => {
-            console.log(error);
+            if (!result.success) {
+              throw (result);
+            }
+            setUserPostDetails(result.post);
           }
-        );
+        ).catch(err => {
+          console.log(err);
+        });
     };
     fetchData();
   }, []);
 
   function handleOk(){
 
-    fetch(`${apiUrl}/post/${id}`, {
-      method: 'delete'
+    fetch(`${apiUrl}/posts/${id}`, {
+      method: 'delete',
+      headers: { 
+        "Content-Type": 'application/json',
+        "x-auth-token": auth.getToken()
+       }
     }).then(
       (result) => {
+        console.log(result)
+        if (!result.ok) {
+          throw (result);
+        }
        history.push("/posts")
       },
       (error) => {
         console.log(error);
       }
-    );
+    ).catch(err => {
+      console.log(err);
+    });
       
 }
 

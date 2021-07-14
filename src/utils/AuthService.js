@@ -20,12 +20,22 @@ export default class AuthService extends EventEmitter {
     });
   }
 
-  login(user, password) {
-    return this._doAuthentication("users/authenticate", { user, password });
+  getUserDetails() {
+    return this.fetch(`${API_URL}/auth`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": this.getToken()
+      },
+    })
   }
 
-  signup(username, email, password) {
-    return this._doAuthentication("users", { username, email, password });
+  login(email, password) {
+    return this._doAuthentication("auth", { email, password });
+  }
+
+  signup(name, email, password) {
+    return this._doAuthentication("users", { name, email, password });
   }
 
   isAuthenticated() {
@@ -39,8 +49,8 @@ export default class AuthService extends EventEmitter {
   }
 
   isAdmin() {
-    console.log(jwtDecode(this.getToken()));
-    return jwtDecode(this.getToken()).role === "admin";
+    // console.log(jwtDecode(this.getToken()).user.admin);
+    return jwtDecode(this.getToken()).user.admin === true;
   }
 
   finishAuthentication(token) {
@@ -76,7 +86,7 @@ export default class AuthService extends EventEmitter {
     };
 
     if (this.isAuthenticated()) {
-      headers["Authorization"] = "Bearer " + this.getToken();
+      headers["x-auth-token"] = this.getToken();
     }
 
     return fetch(url, {

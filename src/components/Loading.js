@@ -1,8 +1,8 @@
-import loading from "../assets/loading.svg";
+// import loading from "../assets/loading.svg";
 
 const Loading = () => (
   <div>
-    <img src={loading} alt="Loading" />
+    Loading...
   </div>
 );
 

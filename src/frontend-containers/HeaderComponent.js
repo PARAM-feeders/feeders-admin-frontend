@@ -4,15 +4,19 @@ import { Nav, Navbar } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import LogoutButton from "src/components/LogoutButton";
 import LoginButton from "../components/LoginButton";
+import AuthService from "../utils/AuthService";
+const auth = new AuthService();
 
+const requireAuth = () => {
+    return auth.isAuthenticated() ? true : false;
+  };
 
+  const requireAdmin = () => {
+    return requireAuth() && auth.isAdmin() ? true : false;
+  };
 
 const HeaderComponent = () => {
     const history = useHistory();
-
-    const { user, isAuthenticated, getAccessTokenSilently, isLoading } =
-        useAuth0();
-
 
     return (
         <div>
@@ -22,12 +26,14 @@ const HeaderComponent = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="#about">About</Nav.Link>
+                        {requireAuth() && (
                         <Nav.Link href="#posts">Posts</Nav.Link>
-                        {isAuthenticated && (
+                        )}
+                        {requireAuth() && (
                             <Nav.Link href="#profile">Profile</Nav.Link>
                         )}
                     </Nav>
-                    {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+                    {requireAuth() ? <LogoutButton /> : <LoginButton />}
                 </Navbar.Collapse>
             </Navbar>
         </div>

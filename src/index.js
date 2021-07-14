@@ -6,7 +6,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Auth0ProviderWithHistory from "./auth/Auth0ProviderWithHistory";
 import { BrowserRouter as Router } from "react-router-dom";
 import { icons } from './assets/icons'
 
@@ -17,13 +16,11 @@ React.icons = icons
 
 ReactDOM.render(
    <Router>
-    <Auth0ProviderWithHistory>
     <Provider store={store}>
       <React.StrictMode>
         <App />
       </React.StrictMode>
       </Provider>
-    </Auth0ProviderWithHistory>
   </Router>,
   document.getElementById('root')
 );

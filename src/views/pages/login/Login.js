@@ -28,11 +28,11 @@ const Login = () => {
 
   const onLoginSubmit = (event) => {
     event.preventDefault();
-    const user = userName;
+    const email = userName;
     const password = userPassword;
 
-    if (user && password) {
-      auth.login(user, password).then((result) => {
+    if (email && password) {
+      auth.login(email, password).then((result) => {
         if (!result.token) {
           setLoginError(result.message);
           return;
