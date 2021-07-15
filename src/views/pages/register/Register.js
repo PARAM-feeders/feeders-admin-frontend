@@ -5,6 +5,10 @@ import {
   CCard,
   CCardBody,
   CCardFooter,
+  CToast,
+  CToastBody,
+  CToastHeader,
+  CToaster,
   CCol,
   CContainer,
   CForm,
@@ -23,8 +27,9 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [showError, setShowError] = useState(false);
   // ToDo: Show error message in toast message
-  const [registerError, setRegisterError] = useState("");
+  const [registerError, setRegisterError] = useState([]);
 
   const auth = new AuthService();
 
@@ -36,7 +41,12 @@ const Register = () => {
     if (name && email && password) {
       auth.signup(name, email, password).then((result) => {
         if (!result.token) {
-          setRegisterError(result.message);
+          console.log(result)
+          setShowError(true)
+          setRegisterError(result.errors);
+          setTimeout(() => {
+            setShowError(false);
+          }, 5000);
           return;
         }
         auth.finishAuthentication(result.token);
@@ -95,7 +105,7 @@ const Register = () => {
                       autoComplete="new-password"
                     />
                   </CInputGroup>
-                  <CInputGroup className="mb-4">
+                  {/* <CInputGroup className="mb-4">
                     <CInputGroupPrepend>
                       <CInputGroupText>
                         <CIcon name="cil-lock-locked" />
@@ -107,14 +117,36 @@ const Register = () => {
                       placeholder="Repeat password"
                       autoComplete="new-password"
                     />
-                  </CInputGroup>
+                  </CInputGroup> */}
                   <CButton color="success" block onClick={onSignupSubmit}>
                     Create Account
                   </CButton>
+                  <Link to="/login">
+                    <p className="mt-2 text-center">
+                      Already have an account!
+                    </p>
+                  </Link>
                 </CForm>
               </CCardBody>
-              
+
             </CCard>
+            <CToaster
+              position={"top-right"}
+            >
+              <CToast
+                color="danger"
+                show={showError}
+                autohide={4000}
+                fade={true}
+              >
+                <CToastHeader closeButton={true}>
+                  Oops!!
+                </CToastHeader>
+                <CToastBody>
+                  {registerError && registerError.map(e => { return (<div>{e.msg}<br /></div>) })}
+                </CToastBody>
+              </CToast>
+            </CToaster>
           </CCol>
         </CRow>
       </CContainer>

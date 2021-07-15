@@ -25,6 +25,7 @@ const Login = () => {
   const history = useHistory();
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [showError, setShowError] = useState(false);
   // ToDo: Show error message in toast message
   const [loginError, setLoginError] = useState("");
 
@@ -38,7 +39,11 @@ const Login = () => {
     if (email && password) {
       auth.login(email, password).then((result) => {
         if (!result.token) {
-          setLoginError(result.message);
+          setLoginError(result.msg);
+          setShowError(true);
+          setTimeout(() => {
+            setShowError(false);
+          }, 3000);
           return;
         }
         auth.finishAuthentication(result.token);
@@ -105,26 +110,22 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-
               <CToaster
                 position={"top-right"}
-              
               >
                 <CToast
                   color="danger"
-                  show={true}
+                  show={showError}
+                  autohide={2000}
                   fade={true}
                 >
                   <CToastHeader closeButton={true}>
-                  Error
+                    Oops!!
                   </CToastHeader>
                   <CToastBody>
-                    This is toast
+                    {loginError}
                   </CToastBody>
                 </CToast>
-
-
-
               </CToaster>
               <CCard
                 className="text-white bg-primary py-5 d-md-down-none"

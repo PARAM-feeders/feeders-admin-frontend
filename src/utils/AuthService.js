@@ -91,9 +91,14 @@ export default class AuthService extends EventEmitter {
       headers["x-auth-token"] = this.getToken();
     }
 
-    return fetch(url, {
+    return (fetch(url, {
       headers,
       ...options,
-    }).then((response) => response.json());
+    }).then((response) => response.json())
+    .catch(function (erro) {
+      console.log(erro);
+  }))
+
+
   }
 }
