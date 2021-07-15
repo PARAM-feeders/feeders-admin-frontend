@@ -9,24 +9,27 @@ const PostDetail = () => {
   const auth = new AuthService();
   const { id } = useParams();
   const history = useHistory();
-  console.log("id", id);
 
   const [postDetails, setUserPostDetails] = useState(null);
-  
+
   const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchData = async () => {
       await fetch(`${apiUrl}/posts/${id}`, {
         method: 'get',
-        headers: { "Content-Type": 'application/json',
-        "x-auth-token": auth.getToken()
-       }})
+        headers: {
+          "Content-Type": 'application/json',
+          "x-auth-token": auth.getToken()
+        }
+      })
         .then((res) => res.json())
         .then(
           (result) => {
             if (!result.success) {
               throw (result);
             }
+
+            console.log(result.post);
             setUserPostDetails(result.post);
           }
         ).catch(err => {
@@ -36,21 +39,21 @@ const PostDetail = () => {
     fetchData();
   }, []);
 
-  function handleOk(){
+  function handleOk() {
 
     fetch(`${apiUrl}/posts/${id}`, {
       method: 'delete',
-      headers: { 
+      headers: {
         "Content-Type": 'application/json',
         "x-auth-token": auth.getToken()
-       }
+      }
     }).then(
       (result) => {
         console.log(result)
         if (!result.ok) {
           throw (result);
         }
-       history.push("/posts")
+        history.push("/posts")
       },
       (error) => {
         console.log(error);
@@ -58,23 +61,23 @@ const PostDetail = () => {
     ).catch(err => {
       console.log(err);
     });
-      
-}
+
+  }
 
   function DeletePost() {
 
-  
+
     const [show, setShow] = useState(false);
-  
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-  
+
     return (
       <div>
         <Button variant="danger" onClick={handleShow}>
           Delete
         </Button>
-  
+
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Delete Post</Modal.Title>
@@ -93,12 +96,30 @@ const PostDetail = () => {
     );
   }
 
+  function UpdatePost() {
+
+    return (
+      <div>
+        <Link to={"/update-post/" + id}>
+          <Button variant="danger">
+            Update
+          </Button>
+        </Link>
+
+      </div>
+    );
+  }
+
 
 
   return (
     <div className="container" id="post-detail">
       <div className="row justify-content-end mb-4">
-        <DeletePost />
+        {postDetails && postDetails.user_id == localStorage.getItem("id") &&
+          <UpdatePost />}
+          {postDetails && postDetails.user_id == localStorage.getItem("id") &&
+        <DeletePost />}
+
       </div>
       <div className="row">
         <div className="col-md-6">
@@ -116,7 +137,7 @@ const PostDetail = () => {
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 };

@@ -6,6 +6,10 @@ import {
   CCardBody,
   CCardGroup,
   CCol,
+  CToast,
+  CToastBody,
+  CToastHeader,
+  CToaster,
   CContainer,
   CForm,
   CInput,
@@ -101,6 +105,27 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
+
+              <CToaster
+                position={"top-right"}
+              
+              >
+                <CToast
+                  color="danger"
+                  show={true}
+                  fade={true}
+                >
+                  <CToastHeader closeButton={true}>
+                  Error
+                  </CToastHeader>
+                  <CToastBody>
+                    This is toast
+                  </CToastBody>
+                </CToast>
+
+
+
+              </CToaster>
               <CCard
                 className="text-white bg-primary py-5 d-md-down-none"
                 style={{ width: "44%" }}
