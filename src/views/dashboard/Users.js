@@ -1,9 +1,9 @@
 
-import React, { lazy, useState, useEffect } from 'react';
-import AuthService from "../../utils/AuthService";
 import { CButton, CCol, CRow } from "@coreui/react";
 import { Paper } from "@material-ui/core";
 import MaterialTable from "material-table";
+import React, { lazy, useEffect, useState } from 'react';
+import AuthService from "../../utils/AuthService";
 import MyDialog from "./MyDialog.js";
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
@@ -12,15 +12,11 @@ const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 const Users = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [rowData, setRowData] = useState("");
-  const [value, setValue] = useState(false);
   const auth = new AuthService();
   const [users, setUsers] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
 
   const handleDialogClose = (event) => {
     setIsDialogOpen(false);
@@ -84,10 +80,6 @@ const Users = () => {
       });
 };
 
-  
-
-
-
   useEffect(() => {
     const fetchData = async () => {
       await fetch(`${apiUrl}/admin/users/all`, {
@@ -105,6 +97,7 @@ const Users = () => {
             }
             // console.log("result", result.users);
             setUsers(result.users);
+            setIsLoading(false);
           }
         ).catch(err => {
           console.log(err);
@@ -129,6 +122,8 @@ const Users = () => {
     {
       title: "Blocked",
       field: "isBlocked",
+      render: rowData => {
+        return rowData.isBlocked === true ? <p style={{fontSize: '1rem'}} className="badge badge-danger">Blocked</p> : <p style={{fontSize: '1rem'}} className="badge badge-success">Active</p>}
     },
   ];
   return (
@@ -137,6 +132,7 @@ const Users = () => {
         title="Users"
         data={data}
         columns={columns}
+        isLoading={isLoading}
         options={{
           search: true,
           paging: true,
