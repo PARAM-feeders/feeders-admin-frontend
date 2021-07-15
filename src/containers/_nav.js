@@ -23,6 +23,16 @@ const _nav =  [
     }
     
   },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Posts',
+    to: '/posts',
+    icon: <CIcon name="cil-user" customClasses="c-sidebar-nav-icon"/>,
+    badge: {
+      color: 'info',
+    }
+    
+  },
   // {
   //   _tag: 'CSidebarNavTitle',
   //   _children: ['Theme']
