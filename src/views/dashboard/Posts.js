@@ -11,6 +11,7 @@ const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
 const Posts = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPost, setCurrentPost] = useState();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
@@ -47,6 +48,7 @@ const Posts = () => {
             }
             // console.log("result", result.users);
             setPosts(result.posts);
+            setIsLoading(false);
           }
         ).catch(err => {
           console.log(err);
@@ -60,6 +62,11 @@ const Posts = () => {
 
   const columns = [
     {
+      field: 'image',
+      title: 'Image',
+      render: rowData => <img src={rowData.image} style={{width: 50, height: 50, borderRadius: '50%'}}/>
+    },
+    {
         title: "Name",
         field: "name",
     },
@@ -70,6 +77,8 @@ const Posts = () => {
     {
       title: "Status",
       field: "isApproved",
+      render: rowData => {
+        return rowData.isApproved === true ? <p style={{fontSize: '1rem'}} className="badge badge-success" >Yes</p> : <p style={{fontSize: '1rem'}} className="badge badge-danger">No</p>}
     },
   ];
   return (
@@ -78,6 +87,7 @@ const Posts = () => {
         title="Posts"
         data={data}
         columns={columns}
+        isLoading={isLoading}
         options={{
           search: true,
           paging: true,

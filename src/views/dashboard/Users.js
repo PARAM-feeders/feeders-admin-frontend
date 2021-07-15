@@ -12,6 +12,7 @@ const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 const Users = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [dialogWord, setDialogWord] = useState("");
   const [dialogId, setDialogId] = useState("");
   const [value, setValue] = useState(false);
@@ -49,6 +50,7 @@ const Users = () => {
             }
             // console.log("result", result.users);
             setUsers(result.users);
+            setIsLoading(false);
           }
         ).catch(err => {
           console.log(err);
@@ -89,6 +91,7 @@ const Users = () => {
         title="Users"
         data={data}
         columns={columns}
+        isLoading={isLoading}
         options={{
           search: true,
           paging: true,
