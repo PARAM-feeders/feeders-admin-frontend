@@ -1,6 +1,5 @@
 import { EventEmitter } from "events";
 import jwtDecode from "jwt-decode";
-import { API_URL } from "./constants";
 import { isTokenExpired } from "./jwtHelper";
 
 
@@ -13,7 +12,7 @@ export default class AuthService extends EventEmitter {
   }
 
   _doAuthentication(endpoint, values) {
-    return this.fetch(`${API_URL}/${endpoint}`, {
+    return this.fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
       method: "POST",
       body: JSON.stringify(values),
       headers: { "Content-Type": "application/json" },
@@ -21,7 +20,8 @@ export default class AuthService extends EventEmitter {
   }
 
   getUserDetails() {
-    return this.fetch(`${API_URL}/auth`, {
+    console.log("process.env.API_URL", process.env.REACT_APP_API_URL)
+    return this.fetch(`${process.env.REACT_APP_API_URL}/auth`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -55,6 +55,8 @@ export default class AuthService extends EventEmitter {
 
   finishAuthentication(token) {
     localStorage.setItem("token", token);
+    localStorage.setItem("id", jwtDecode(token).user.id);
+    ;
   }
 
   getToken() {

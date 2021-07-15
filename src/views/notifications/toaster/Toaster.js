@@ -149,13 +149,14 @@ const Toaster = () => {
             </CCol>
             <CCol sm="12" lg="6">
               {Object.keys(toasters).map((toasterKey) => (
+             
                 <CToaster
                   position={toasterKey}
                   key={'toaster' + toasterKey}
                 >
-                  {
+                  {console.log("toasterKey",toasterKey),
                     toasters[toasterKey].map((toast, key)=>{
-                      {console.log(toast)}
+                      {console.log("toast,",toast, toast.fade, toast.closeButton)}
                     return(
                       <CToast
                         key={'toast' + key}
