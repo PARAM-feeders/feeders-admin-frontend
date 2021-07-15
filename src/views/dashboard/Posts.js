@@ -11,13 +11,11 @@ const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 
 const Posts = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [currentPost, setCurrentPost] = useState();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [dialogWord, setDialogWord] = useState("");
-  const [dialogId, setDialogId] = useState("");
-  const [value, setValue] = useState(false);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const handleCurrentPost = (event, data) => {
+    console.log('post data', data);
   };
 
   const handleDialogClose = (event) => {
@@ -93,6 +91,7 @@ const Posts = () => {
             tooltip: "Edit Post",
             onClick: (event, rowData) => {
               setIsDialogOpen(true);
+              setCurrentPost(rowData);
             },
           },
           {
@@ -118,7 +117,7 @@ const Posts = () => {
       <div style={{ marginTop: "3em" }}>
         <CRow className="align-items-center">
           <CCol col="12" xl className="mb-3 mb-xl-0">
-            <CButton block color="primary">
+            <CButton block color="primary" onClick={(e)=>handleCurrentPost(e, currentPost)}>
               Yes
             </CButton>
           </CCol>
