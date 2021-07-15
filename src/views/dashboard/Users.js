@@ -1,9 +1,9 @@
 
-import React, { lazy, useState, useEffect } from 'react';
-import AuthService from "../../utils/AuthService";
 import { CButton, CCol, CRow } from "@coreui/react";
 import { Paper } from "@material-ui/core";
 import MaterialTable from "material-table";
+import React, { lazy, useEffect, useState } from 'react';
+import AuthService from "../../utils/AuthService";
 import MyDialog from "./MyDialog.js";
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
@@ -13,13 +13,10 @@ const Users = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [dialogWord, setDialogWord] = useState("");
-  const [dialogId, setDialogId] = useState("");
-  const [value, setValue] = useState(false);
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  const [rowData, setRowData] = useState("");
+  const auth = new AuthService();
+  const [users, setUsers] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleDialogClose = (event) => {
     setIsDialogOpen(false);
@@ -29,10 +26,64 @@ const Users = () => {
     setIsDeleteDialogOpen(false);
   };
 
+  const handleDialogBlock = async (event, rowData) =>{
 
-  const auth = new AuthService();
-  const [users, setUsers] = useState([]);
-  const apiUrl = process.env.REACT_APP_API_URL;
+      await fetch(`${apiUrl}/admin/users/${rowData._id}`, {
+        method: 'put',
+        headers: {
+          "Content-Type": 'application/json',
+          "x-auth-token": auth.getToken()
+        },
+        body: JSON.stringify({
+         "isBlocked" : !rowData.isBlocked
+        })
+      })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            if (!result.success) {
+              throw (result);
+            }
+            // console.log("result", result);
+            setUsers(result.users);
+            handleDeleteDialogClose();
+          }
+        ).catch(err => {
+          console.log(err);
+        });
+  };
+
+
+  const handleDialogAdmin = async (event, rowData) =>{
+
+    await fetch(`${apiUrl}/admin/users/${rowData._id}`, {
+      method: 'put',
+      headers: {
+        "Content-Type": 'application/json',
+        "x-auth-token": auth.getToken()
+      },
+      body: JSON.stringify({
+       "admin" : !rowData.admin
+      })
+    })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          if (!result.success) {
+            throw (result);
+          }
+          setUsers(result.users);
+          handleDialogClose();
+        }
+      ).catch(err => {
+        console.log(err);
+      });
+};
+
+  
+
+
+
   useEffect(() => {
     const fetchData = async () => {
       await fetch(`${apiUrl}/admin/users/all`, {
@@ -58,17 +109,9 @@ const Users = () => {
     }
 
     auth.isAuthenticated && fetchData();
-  }, []);
+  }, [users]);
 
   const data = users && users;
-  // [
-  //     { name: "John", email: "john@gmail.com", age: 12, gender: "Male" },
-  //     { name: "Bren", email: "bren@gmail.com", age: 24, gender: "Male" },
-  //     { name: "Marry", email: "marry@gmail.com", age: 18, gender: "Female" },
-  //     { name: "Shohail", email: "shohail@gmail.com", age: 25, gender: "Male" },
-  //     { name: "Aseka", email: "aseka@gmail.com", age: 19, gender: "Female" },
-  //     { name: "Meuko", email: "meuko@gmail.com", age: 12, gender: "Female" },
-  //   ];
 
 
   const columns = [
@@ -105,32 +148,35 @@ const Users = () => {
             tooltip: "Edit User",
             onClick: (event, rowData) => {
               setIsDialogOpen(true);
+              setRowData(rowData)
             },
           },
           {
             icon: "delete",
-            tooltip: "Delete User",
+            tooltip: "Block User",
             onClick: (event, rowData) => {
               setIsDeleteDialogOpen(true);
+              setRowData(rowData)
             },
           },
         ]}
       />
 
       <MyDialog
-        title="Block User"
+        title={rowData && rowData.admin ? "Remove Admin" : "Create Admin" }
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
       >
         <Paper style={{ padding: "2em" }}>
         <div>
-        <p>Are you sure you want to block the user?</p>
+        {rowData && rowData.admin ?  <p>Are you sure you want to remove Admin for this user?</p> : 
+          <p>Are you sure you want to make Admin for this user?</p> }
       </div>
 
       <div style={{ marginTop: "3em" }}>
         <CRow className="align-items-center">
           <CCol col="12" xl className="mb-3 mb-xl-0">
-            <CButton block color="primary">
+            <CButton block color="primary" onClick={(e) => handleDialogAdmin(e, rowData)}>
               Yes
             </CButton>
           </CCol>
@@ -145,19 +191,20 @@ const Users = () => {
       </MyDialog>
 
       <MyDialog
-        title="Delete User"
+        title={rowData && rowData.isBlocked ? "UnBlock User" : "Block User" }
         isOpen={isDeleteDialogOpen}
         onClose={handleDeleteDialogClose}
       >
         <Paper style={{ padding: "2em" }}>
           <div>
-            <p>Are you sure you want to delete the user?</p>
+           {rowData && rowData.isBlocked ? <p>Are you sure you want to unblock the user?</p>
+           : <p>Are you sure you want to block the user?</p>}
           </div>
 
           <div style={{ marginTop: "3em" }}>
             <CRow className="align-items-center">
               <CCol col="12" xl className="mb-3 mb-xl-0">
-                <CButton block color="primary">
+                <CButton block color="primary" onClick={(e) => handleDialogBlock(e, rowData)}>
                   Yes
                 </CButton>
               </CCol>

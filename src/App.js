@@ -45,7 +45,7 @@ class App extends Component {
               }
             />
             <Route
-              path="/users"
+              path="/admin/users"
               name="Users"
               render={(props) =>
                 requireAdmin() ? (
@@ -56,7 +56,7 @@ class App extends Component {
               }
             />
             <Route
-              path="/posts"
+              path="/admin/posts"
               name="Posts"
               render={(props) =>
                 requireAdmin() ? (

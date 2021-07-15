@@ -78,9 +78,9 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', component: Modals },
   { path: '/notifications/toaster', name: 'Toaster', component: Toaster },
   { path: '/widgets', name: 'Widgets', component: Widgets },
-  { path: '/users', exact: true,  name: 'Users', component: Users },
-  { path: '/users/:id', exact: true, name: 'User Details', component: User },
-  { path: '/posts', exact: true,  name: 'Posts', component: Posts },
+  { path: '/admin/users', exact: true,  name: 'Users', component: Users },
+  { path: '/admin/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/admin/posts', exact: true,  name: 'Posts', component: Posts },
 ];
 
 export default routes;

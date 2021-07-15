@@ -42,7 +42,7 @@ const Posts = () => {
     <div className="container" id="post">
     {loading}
       <div className="row justify-content-between mb-4">
-        <h2>All Posts</h2>
+        <h2>All Approved Posts</h2>
         <div>
         <Link to="/my-posts">  <button className="btn btn-round btn-danger " type="button">
           My Posts
