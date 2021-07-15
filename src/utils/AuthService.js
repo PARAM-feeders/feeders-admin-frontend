@@ -12,7 +12,7 @@ export default class AuthService extends EventEmitter {
   }
 
   _doAuthentication(endpoint, values) {
-    return this.fetch(`${process.env.API_URL}/${endpoint}`, {
+    return this.fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
       method: "POST",
       body: JSON.stringify(values),
       headers: { "Content-Type": "application/json" },
@@ -20,7 +20,8 @@ export default class AuthService extends EventEmitter {
   }
 
   getUserDetails() {
-    return this.fetch(`${process.env.API_URL}/auth`, {
+    console.log("process.env.API_URL", process.env.REACT_APP_API_URL)
+    return this.fetch(`${process.env.REACT_APP_API_URL}/auth`, {
       method: "get",
       headers: {
         "Content-Type": "application/json",

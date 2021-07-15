@@ -8,7 +8,7 @@ import loading from "../../../components/Loading"
 
 const Posts = () => {
   const auth = new AuthService();
-  const [posts, setUserPosts] = useState(null);
+  const [posts, setUserPosts] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -54,7 +54,6 @@ const Posts = () => {
       </div>
 
       <div className="row">
-      {console.log("post",posts)}
         {posts && posts.map((post, index) => {
           return <Post list={post} key={index} />
         })}

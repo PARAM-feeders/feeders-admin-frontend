@@ -53,7 +53,7 @@ const Posts = () => {
 
       <div className="row">
         {posts && posts.length !=0 ? posts.map((post, index) => {
-          return <Post list={post} key={index} />
+          return <Post list={post} key={index} showApproved = {true}/>
         }) :  "No posts yet"}
 
       </div>

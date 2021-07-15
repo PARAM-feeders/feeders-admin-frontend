@@ -117,6 +117,7 @@ const PostDetail = () => {
       <div className="row justify-content-end mb-4">
         {postDetails && postDetails.user_id == localStorage.getItem("id") &&
           <UpdatePost />}
+          &nbsp;
           {postDetails && postDetails.user_id == localStorage.getItem("id") &&
         <DeletePost />}
 
