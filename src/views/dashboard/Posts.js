@@ -12,11 +12,59 @@ const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 const Posts = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState();
+  const [isSuccess, setSuccess] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const auth = new AuthService();
+  const [posts, setPosts] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
-  const handleCurrentPost = (event, data) => {
-    console.log('post data', data);
+  const handleCurrentPost = async (event, rowData) => {
+    await fetch(`${apiUrl}/admin/posts/${rowData._id}`, {
+      method: 'put',
+      headers: {
+        "Content-Type": 'application/json',
+        "x-auth-token": auth.getToken()
+      },
+      body: JSON.stringify({
+       "isApproved" : !rowData.isApproved
+      })
+    })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          if (!result.success) {
+            throw (result);
+          }
+          setCurrentPost(result.posts);
+          handleDialogClose();
+        }
+      ).catch(err => {
+        console.log(err);
+      });
   };
+
+  const handleDeleteCurrentPost = async (event, rowData) => {
+    await fetch(`${apiUrl}/admin/posts/${rowData._id}`, {
+      method: 'delete',
+      headers: {
+        "Content-Type": 'application/json',
+        "x-auth-token": auth.getToken()
+      },
+     })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          if (!result.success) {
+            throw (result);
+          }
+          setSuccess(result.success);
+          handleDeleteDialogClose();
+        }
+      ).catch(err => {
+        console.log(err);
+      });
+  };
+  
 
   const handleDialogClose = (event) => {
     setIsDialogOpen(false);
@@ -27,9 +75,7 @@ const Posts = () => {
   };
 
 
-  const auth = new AuthService();
-  const [posts, setPosts] = useState([]);
-  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchData = async () => {
       await fetch(`${apiUrl}/admin/posts/all`, {
@@ -54,7 +100,7 @@ const Posts = () => {
     }
 
     auth.isAuthenticated && fetchData();
-  }, []);
+  }, [isSuccess, currentPost]);
 
   const data = posts && posts;
 
@@ -68,7 +114,7 @@ const Posts = () => {
       field: "location",
     },
     {
-      title: "Status",
+      title: "Post Status",
       field: "isApproved",
     },
   ];
@@ -99,19 +145,21 @@ const Posts = () => {
             tooltip: "Delete Post",
             onClick: (event, rowData) => {
               setIsDeleteDialogOpen(true);
+              setCurrentPost(rowData);
             },
           },
         ]}
       />
 
       <MyDialog
-        title="Approve Post"
+       title={currentPost && currentPost.isApproved ? "Disapprove Post" : "Approve Post" }
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
       >
         <Paper style={{ padding: "2em" }}>
         <div>
-        <p>Are you sure you want to approve the post?</p>
+       {currentPost && currentPost.isApproved ?<p>Are you sure you want to disapprove the post?</p>
+       : <p>Are you sure you want to approve the post?</p> }
       </div>
 
       <div style={{ marginTop: "3em" }}>
@@ -144,7 +192,7 @@ const Posts = () => {
           <div style={{ marginTop: "3em" }}>
             <CRow className="align-items-center">
               <CCol col="12" xl className="mb-3 mb-xl-0">
-                <CButton block color="primary">
+                <CButton block color="primary"  onClick={(e)=>handleDeleteCurrentPost(e, currentPost)}>
                   Yes
                 </CButton>
               </CCol>
