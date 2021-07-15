@@ -1,27 +1,22 @@
-import React, { useState } from 'react'
-import AuthService from "../utils/AuthService";
+import CIcon from '@coreui/icons-react';
 import {
-  CBadge,
   CDropdown,
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
-  CImg,
-  CButton
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import { Link, useHistory } from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
+  CImg
+} from '@coreui/react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import AuthService from "../utils/AuthService";
 const TheHeaderDropdown = () => {
   const history = useHistory();
   const auth = new AuthService();
 
   const signOut = (event) => {
-    event.preventDefault();
     auth.logout();
-    history.push('/')
+    history.push("/");
   };
-  const { logout } = useAuth0();
 
   return (
     <CDropdown
@@ -93,8 +88,8 @@ const TheHeaderDropdown = () => {
           <CBadge color="primary" className="mfs-auto">42</CBadge>
         </CDropdownItem> */}
         <CDropdownItem divider />
-        <CDropdownItem onClick={() => logout({ returnTo: window.location.origin })}>
-          <CIcon name="cil-lock-locked" className="mfe-2" />
+        <CDropdownItem onClick={signOut}>
+          <CIcon name="cil-lock-locked" className="mfe-2"/>
           Signout
         </CDropdownItem>
       </CDropdownMenu>
