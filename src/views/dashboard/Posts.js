@@ -75,8 +75,6 @@ const Posts = () => {
     setIsDeleteDialogOpen(false);
   };
 
-
-
   useEffect(() => {
     const fetchData = async () => {
       await fetch(`${apiUrl}/admin/posts/all`, {

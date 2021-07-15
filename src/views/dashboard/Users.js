@@ -80,10 +80,6 @@ const Users = () => {
       });
 };
 
-  
-
-
-
   useEffect(() => {
     const fetchData = async () => {
       await fetch(`${apiUrl}/admin/users/all`, {
@@ -126,6 +122,8 @@ const Users = () => {
     {
       title: "Blocked",
       field: "isBlocked",
+      render: rowData => {
+        return rowData.isBlocked === true ? <p style={{fontSize: '1rem'}} className="badge badge-danger">Blocked</p> : <p style={{fontSize: '1rem'}} className="badge badge-success">Active</p>}
     },
   ];
   return (
