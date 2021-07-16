@@ -150,7 +150,7 @@ const Users = () => {
             },
           },
           {
-            icon: "delete",
+            icon: "block",
             tooltip: "Block User",
             onClick: (event, rowData) => {
               setIsDeleteDialogOpen(true);
