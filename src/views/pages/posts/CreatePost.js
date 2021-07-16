@@ -11,33 +11,44 @@ const CreatePost = () => {
   const [image, setImage] = useState("");
   const [location, setLocations] = useState("");
   const [description, setDescription] = useState("");
+  const [userMetaData, setUserMetadata] = useState([]);
   const auth = new AuthService();
   const apiUrl = process.env.REACT_APP_API_URL;
   const history = useHistory();
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(`${apiUrl}/posts/${id}`, {
-        method: 'get',
-        headers: {
-          "Content-Type": 'application/json',
-          "x-auth-token": auth.getToken()
-        }
-      })
-        .then((res) => res.json())
-        .then(
-          (result) => {
-            if (!result.success) {
-              throw (result);
-            }
-            setName(result.post.name);
-            setImage(result.post.image);
-            setLocations(result.post.location);
-            setDescription(result.post.description);
+
+      try {
+        const user = await auth.getUserDetails();
+        setUserMetadata(user);
+      } catch (e) {
+        console.log(e);
+      }
+
+      if (id != undefined) {
+        await fetch(`${apiUrl}/posts/${id}`, {
+          method: 'get',
+          headers: {
+            "Content-Type": 'application/json',
+            "x-auth-token": auth.getToken()
           }
-        ).catch(err => {
-          console.log(err);
-        });
+        })
+          .then((res) => res.json())
+          .then(
+            (result) => {
+              if (!result.success) {
+                throw (result);
+              }
+              setName(result.post.name);
+              setImage(result.post.image);
+              setLocations(result.post.location);
+              setDescription(result.post.description);
+            }
+          ).catch(err => {
+            console.log(err);
+          });
+      }
     };
     fetchData();
   }, []);
@@ -54,7 +65,9 @@ const CreatePost = () => {
         "name": name,
         "description": description,
         "image": image,
-        "location": location
+        "location": location,
+        "postBy": userMetaData.name,
+        "email": userMetaData.email
       })
     }).then(res => res.json())
       .then(

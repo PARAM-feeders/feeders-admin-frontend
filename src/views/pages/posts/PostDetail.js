@@ -4,12 +4,13 @@ import { useParams } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { Link, useHistory } from "react-router-dom";
-import AuthService from "../../../utils/AuthService"
+import AuthService from "../../../utils/AuthService";
+import { CSpinner } from "@coreui/react";
 const PostDetail = () => {
   const auth = new AuthService();
   const { id } = useParams();
   const history = useHistory();
-
+  const [loading, setLoading] = useState(true);
   const [postDetails, setUserPostDetails] = useState(null);
 
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -28,11 +29,11 @@ const PostDetail = () => {
             if (!result.success) {
               throw (result);
             }
-
-            console.log(result.post);
+            setLoading(false);
             setUserPostDetails(result.post);
           }
         ).catch(err => {
+          setLoading(false);
           console.log(err);
         });
     };
@@ -40,7 +41,7 @@ const PostDetail = () => {
   }, []);
 
   function handleOk() {
-
+    setLoading(true);
     fetch(`${apiUrl}/posts/${id}`, {
       method: 'delete',
       headers: {
@@ -53,19 +54,21 @@ const PostDetail = () => {
         if (!result.ok) {
           throw (result);
         }
+        setLoading(false);
         history.push("/posts")
       },
       (error) => {
+        setLoading(false);
         console.log(error);
       }
     ).catch(err => {
+      setLoading(false);
       console.log(err);
     });
 
   }
 
   function DeletePost() {
-
 
     const [show, setShow] = useState(false);
 
@@ -117,12 +120,12 @@ const PostDetail = () => {
       <div className="row justify-content-end mb-4">
         {postDetails && postDetails.user_id == localStorage.getItem("id") &&
           <UpdatePost />}
-          &nbsp;
-          {postDetails && postDetails.user_id == localStorage.getItem("id") &&
-        <DeletePost />}
+        &nbsp;
+        {postDetails && postDetails.user_id == localStorage.getItem("id") &&
+          <DeletePost />}
 
       </div>
-      <div className="row">
+      {loading ? <div class="text-center w-100 h50 d-flex align-items-center justify-content-center"><CSpinner /> </div> : <div className="row">
         <div className="col-md-6">
           <div className="post-img">
             <img src={postDetails?.image} alt="" width="500" />
@@ -133,11 +136,21 @@ const PostDetail = () => {
           <p className="description">{postDetails?.description}</p>
           <div className="product_meta">
             <p>
-              <span>Location: </span> {postDetails?.location}
+              {postDetails?.location && <span>Location: </span>} {postDetails?.location}
             </p>
+            {postDetails && postDetails.user_id != localStorage.getItem("id") &&
+              <p>
+                <span>Post by: </span> {postDetails?.postBy}
+              </p>
+            }
+            {postDetails && postDetails.user_id != localStorage.getItem("id") &&
+              <p>
+                <span>Email: </span> {postDetails?.email}
+              </p>
+            }
           </div>
         </div>
-      </div>
+      </div>}
 
     </div>
   );

@@ -20,7 +20,6 @@ export default class AuthService extends EventEmitter {
   }
 
   getUserDetails() {
-    console.log("process.env.API_URL", process.env.REACT_APP_API_URL)
     return this.fetch(`${process.env.REACT_APP_API_URL}/auth`, {
       method: "get",
       headers: {

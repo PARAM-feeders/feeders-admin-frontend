@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import Post from "./Post";
 import AuthService from "../../../utils/AuthService"
 import loading from "../../../components/Loading"
+import { CSpinner } from "@coreui/react";
 
 
 
 const Posts = () => {
   const auth = new AuthService();
   const [posts, setUserPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -26,9 +28,11 @@ const Posts = () => {
             if (!result.success) {
               throw (result);
             }
+            setLoading(false);
             setUserPosts(result.posts);
           }
         ).catch(err => {
+          setLoading(false);
           console.log(err);
         });
     }
@@ -40,7 +44,7 @@ const Posts = () => {
 
   return (
     <div className="container" id="post">
-    {loading}
+
       <div className="row justify-content-between mb-4">
         <h2>All Approved Posts</h2>
         <div>
@@ -53,13 +57,14 @@ const Posts = () => {
         </div>
       </div>
 
+      { loading ? <div class="text-center w-100 h50 d-flex align-items-center justify-content-center"><CSpinner /> </div>:
       <div className="row">
         {posts && posts.map((post, index) => {
           return <Post list={post} key={index} />
         })}
-
       </div>
 
+    }
 
     </div>
   );
