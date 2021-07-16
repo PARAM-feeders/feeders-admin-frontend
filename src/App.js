@@ -67,6 +67,17 @@ class App extends Component {
               }
             />
             <Route
+              path="/admin/orders"
+              name="Orders"
+              render={(props) =>
+                requireAdmin() ? (
+                  <TheLayout {...props} />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route
               exact
               path="/theme/colors"
               name="Themes"

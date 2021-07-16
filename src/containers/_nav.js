@@ -27,7 +27,17 @@ const _nav =  [
     _tag: 'CSidebarNavItem',
     name: 'Posts',
     to: '/admin/posts',
-    icon: <CIcon name="cil-user" customClasses="c-sidebar-nav-icon"/>,
+    icon: <CIcon name="cil-list" customClasses="c-sidebar-nav-icon"/>,
+    badge: {
+      color: 'info',
+    }
+    
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Orders',
+    to: '/admin/orders',
+    icon: <CIcon name="cil-basket" customClasses="c-sidebar-nav-icon"/>,
     badge: {
       color: 'info',
     }

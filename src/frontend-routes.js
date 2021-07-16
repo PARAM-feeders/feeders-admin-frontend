@@ -7,6 +7,7 @@ const Posts = React.lazy(() => import('./views/pages/posts/PostListing'));
 const MyPosts = React.lazy(() => import('./views/pages/posts/MyPostListing'));
 const PostDetail = React.lazy(() => import('./views/pages/posts/PostDetail'));
 const CreatePost = React.lazy(() => import('./views/pages/posts/CreatePost'));
+const MyOrders = React.lazy(() => import('./views/pages/orders/MyOrders'));
 const routes = [
   { path: '/', exact: true, name: 'Home', component : Home },
   { path: '/about', exact: true, name: 'About', component : About },
@@ -15,7 +16,8 @@ const routes = [
   { path: '/my-posts', exact: true, name: 'Posts', component : MyPosts },
   { path: '/post/:id', exact: true, name: 'PostDetail', component : PostDetail },
   { path: '/create-post', exact: true, name: 'CreatePost', component : CreatePost },
-  { path: '/update-post/:id', exact: true, name: 'UpdatePost', component : CreatePost }
+  { path: '/update-post/:id', exact: true, name: 'UpdatePost', component : CreatePost },
+  { path: '/my-orders', exact: true, name: 'MyOrders', component : MyOrders }
 ];
   
 export default routes;
