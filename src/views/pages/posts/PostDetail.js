@@ -140,7 +140,7 @@ const PostDetail = () => {
             </p>
             {postDetails && postDetails.user_id != localStorage.getItem("id") &&
               <p>
-                <span>Post by: </span> {postDetails?.postBy}
+                <span>Posted by: </span> {postDetails?.postBy}
               </p>
             }
             {postDetails && postDetails.user_id != localStorage.getItem("id") &&
