@@ -55,7 +55,7 @@ const PostDetail = () => {
           throw (result);
         }
         setLoading(false);
-        history.push("/posts")
+        history.push("/my-posts")
       },
       (error) => {
         setLoading(false);
