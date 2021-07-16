@@ -107,7 +107,7 @@ const CreatePost = () => {
           if (!result.success) {
             throw (result);
           }
-          history.push("/posts")
+          history.push("/my-posts")
         },
         (error) => {
           console.log(error);
