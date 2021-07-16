@@ -39,11 +39,20 @@ const Login = () => {
     if (email && password) {
       auth.login(email, password).then((result) => {
         if (!result.token) {
-          setLoginError(result.msg);
+          console.log("result", result);
+          if(result.msg != undefined)
+         { setLoginError(result.msg);
+          setShowError(true);
+          setTimeout(() => {
+            setShowError(false);
+          }, 3000);}
+          else{
+            setLoginError(result.errors[0].msg);
           setShowError(true);
           setTimeout(() => {
             setShowError(false);
           }, 3000);
+          }
           return;
         }
         auth.finishAuthentication(result.token);
