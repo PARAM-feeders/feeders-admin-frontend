@@ -59,9 +59,9 @@ const Posts = () => {
 
       { loading ? <div class="text-center w-100 h50 d-flex align-items-center justify-content-center"><CSpinner /> </div>:
       <div className="row">
-        {posts && posts.map((post, index) => {
+        {posts && posts.length !=0 ? posts.map((post, index) => {
           return <Post list={post} key={index} />
-        })}
+        }) : "No posts yet"}
       </div>
 
     }

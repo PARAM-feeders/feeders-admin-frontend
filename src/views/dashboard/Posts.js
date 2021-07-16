@@ -115,6 +115,10 @@ const Posts = () => {
         field: "name",
     },
     {
+      title: "Email",
+      field: "email",
+    },
+    {
       title: "Location",
       field: "location",
     },
