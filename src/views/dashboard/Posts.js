@@ -128,6 +128,12 @@ const Posts = () => {
       render: rowData => {
         return rowData.isApproved === true ? <p style={{fontSize: '1rem'}} className="badge badge-success" >Yes</p> : <p style={{fontSize: '1rem'}} className="badge badge-danger">No</p>}
     },
+    {
+      title: "User Status",
+      field: "userBlocked",
+      render: rowData => {
+        return rowData.userBlocked === true ? <p style={{fontSize: '1rem'}} className="badge badge-danger" >Blocked</p> : <p style={{fontSize: '1rem'}} className="badge badge-success">Active</p>}
+    },
   ];
   return (
     <div>

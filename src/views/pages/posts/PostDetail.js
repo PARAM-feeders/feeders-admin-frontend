@@ -12,10 +12,22 @@ const PostDetail = () => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [postDetails, setUserPostDetails] = useState(null);
-
+  const [userMetadata, setUserMetadata] = useState(null);
   const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
+
+   
     const fetchData = async () => {
+      try {
+        const user = await auth.getUserDetails();
+        // console.log( user)
+        setUserMetadata(user);
+        } catch (e) {
+          setLoading(false);
+          console.log(e);
+        }
+
+
       await fetch(`${apiUrl}/posts/${id}`, {
         method: 'get',
         headers: {
@@ -113,6 +125,83 @@ const PostDetail = () => {
     );
   }
 
+  function OrderNow(){
+    const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
+
+    const handleCancel = () => setShowOrderConfirmation(false);
+    const handleShowOrderConfirm = () => setShowOrderConfirmation(true);
+    const handleOrder = async () => {
+    
+
+      console.log(  "productName", postDetails?.name,
+      "description", postDetails?.description,
+      "date", Date.now(),
+      "post_id", postDetails?._id,
+      "postedByName", postDetails?.postedByName,
+      "postedByEmail", postDetails?.postedByEmail,
+      "buyerName", userMetadata?.name,
+      "buyerEmail", userMetadata?.email,
+      "orderStatus", true);
+
+      fetch(`${apiUrl}/orders`, {
+        method: 'post',
+        headers: {
+          "Content-Type": 'application/json',
+          "x-auth-token": auth.getToken()
+        },
+        body: JSON.stringify({
+          "postedByName": postDetails?.postedByName,
+          "postedByEmail": postDetails?.postedByEmail,
+          "productName": postDetails?.name,
+          "description": postDetails?.description,
+          "date": Date.now(),
+          "post_id": postDetails?._id,
+          "buyerName": userMetadata?.name,
+          "buyerEmail": userMetadata?.email,
+          "orderStatus": true         
+          
+        })
+      }).then(res => res.json())
+        .then(
+          (result) => {
+            if (!result.success) {
+              throw (result);
+            }
+            history.push("/posts")
+          },
+          (error) => {
+            console.log(error);
+          }
+        ).catch(err => {
+          console.log(err);
+        });
+    };
+
+    return (
+      <div>
+          <Button variant="danger" onClick={handleShowOrderConfirm} >
+            Order Now
+          </Button>
+
+
+          <Modal show={showOrderConfirmation} onHide={handleCancel}>
+          <Modal.Header closeButton>
+            <Modal.Title>Order Now</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Confirm the order?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCancel}>
+              No
+            </Button>
+            <Button variant="primary" onClick={handleOrder}>
+              Yes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+         </div>
+    )
+  }
+
 
 
   return (
@@ -140,12 +229,17 @@ const PostDetail = () => {
             </p>
             {postDetails && postDetails.user_id != localStorage.getItem("id") &&
               <p>
-                <span>Posted by: </span> {postDetails?.postBy}
+                <span>Posted by: </span> {postDetails?.postedByName}
               </p>
             }
             {postDetails && postDetails.user_id != localStorage.getItem("id") &&
               <p>
-                <span>Email: </span> {postDetails?.email}
+                <span>Email: </span> {postDetails?.postedByEmail}
+              </p>
+            }
+            {postDetails && postDetails.user_id != localStorage.getItem("id") &&
+              <p>
+              <OrderNow />
               </p>
             }
           </div>

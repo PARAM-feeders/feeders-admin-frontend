@@ -16,7 +16,7 @@ const Orders = () => {
   const [isSuccess, setSuccess] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const auth = new AuthService();
-  const [posts, setPosts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleCurrentPost = async (event, rowData) => {
@@ -77,7 +77,7 @@ const Orders = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(`${apiUrl}/admin/posts/all`, {
+      await fetch(`${apiUrl}/admin/orders/all`, {
         method: 'get',
         headers: {
           "Content-Type": 'application/json',
@@ -91,7 +91,7 @@ const Orders = () => {
               throw (result);
             }
             // console.log("result", result.users);
-            setPosts(result.posts);
+            setOrders(result.orders);
             setIsLoading(false);
           }
         ).catch(err => {
@@ -102,27 +102,28 @@ const Orders = () => {
     auth.isAuthenticated && fetchData();
   }, [isSuccess, currentPost]);
 
-  const data = [];
+  const data = orders;
 
   const columns = [
-    {
-      field: 'image',
-      title: 'Image',
-      render: rowData => <img src={rowData.image} style={{width: 50, height: 50, borderRadius: '50%'}}/>
+     {
+        title: "Product Name",
+        field: "productName",
     },
     {
-        title: "Name",
-        field: "name",
+      title: "Posted By",
+      field: "postedByName",
     },
     {
-      title: "Location",
-      field: "location",
+      title: "Posted By Email",
+      field: "postedByEmail",
     },
     {
-      title: "Post Status",
-      field: "isApproved",
-      render: rowData => {
-        return rowData.isApproved === true ? <p style={{fontSize: '1rem'}} className="badge badge-success" >Yes</p> : <p style={{fontSize: '1rem'}} className="badge badge-danger">No</p>}
+      title: "Buyer Name",
+      field: "buyerName",
+    },
+    {
+      title: "Buyer Email",
+      field: "buyerEmail",
     },
   ];
   return (

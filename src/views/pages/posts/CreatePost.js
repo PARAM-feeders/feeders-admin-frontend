@@ -54,7 +54,6 @@ const CreatePost = () => {
   }, []);
 
   function SaveForm() {
-    console.log(name, image, description, location)
     fetch(`${apiUrl}/posts`, {
       method: 'post',
       headers: {
@@ -66,8 +65,8 @@ const CreatePost = () => {
         "description": description,
         "image": image,
         "location": location,
-        "postBy": userMetaData.name,
-        "email": userMetaData.email
+        "postedByName": userMetaData.name,
+        "postedByEmail": userMetaData.email
       })
     }).then(res => res.json())
       .then(
