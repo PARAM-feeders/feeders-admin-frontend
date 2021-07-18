@@ -12,61 +12,14 @@ const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
 const Orders = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPost, setCurrentPost] = useState();
+  const [currentOrder, hsetCurrentOrder] = useState();
   const [isSuccess, setSuccess] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const auth = new AuthService();
   const [orders, setOrders] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
 
-  const handleCurrentPost = async (event, rowData) => {
-    await fetch(`${apiUrl}/admin/posts/${rowData._id}`, {
-      method: 'put',
-      headers: {
-        "Content-Type": 'application/json',
-        "x-auth-token": auth.getToken()
-      },
-      body: JSON.stringify({
-       "isApproved" : !rowData.isApproved
-      })
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          if (!result.success) {
-            throw (result);
-          }
-          setCurrentPost(result.posts);
-          handleDialogClose();
-        }
-      ).catch(err => {
-        console.log(err);
-      });
-  };
-
-  const handleDeleteCurrentPost = async (event, rowData) => {
-    await fetch(`${apiUrl}/admin/posts/${rowData._id}`, {
-      method: 'delete',
-      headers: {
-        "Content-Type": 'application/json',
-        "x-auth-token": auth.getToken()
-      },
-     })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          if (!result.success) {
-            throw (result);
-          }
-          setSuccess(result.success);
-          handleDeleteDialogClose();
-        }
-      ).catch(err => {
-        console.log(err);
-      });
-  };
   
-
   const handleDialogClose = (event) => {
     setIsDialogOpen(false);
   };
@@ -100,7 +53,7 @@ const Orders = () => {
     }
 
     auth.isAuthenticated && fetchData();
-  }, [isSuccess, currentPost]);
+  }, [isSuccess, currentOrder]);
 
   const data = orders;
 
@@ -142,77 +95,43 @@ const Orders = () => {
         }}
         actions={[
           {
-            icon: "edit",
-            tooltip: "Edit Order",
+            icon: "visibility",
+            tooltip: "View Order",
             onClick: (event, rowData) => {
               setIsDialogOpen(true);
-              setCurrentPost(rowData);
+              hsetCurrentOrder(rowData);
             },
-          },
-          {
-            icon: "delete",
-            tooltip: "Delete Order",
-            onClick: (event, rowData) => {
-              setIsDeleteDialogOpen(true);
-              setCurrentPost(rowData);
-            },
-          },
+          }
         ]}
       />
 
       <MyDialog
-       title={currentPost && currentPost.isApproved ? "Disapprove Post" : "Approve Post" }
+       title="Order Details"
         isOpen={isDialogOpen}
         onClose={handleDialogClose}
       >
-        <Paper style={{ padding: "2em" }}>
-        <div>
-       {currentPost && currentPost.isApproved ?<p>Are you sure you want to disapprove the post?</p>
-       : <p>Are you sure you want to approve the post?</p> }
-      </div>
+      <Paper style={{ padding: "2em" }}>
+      {currentOrder && 
+        <div> 
+          <p><b>Title:</b> {currentOrder.productName}</p>
+          <p><b>Description:</b> {currentOrder.description}</p>
+          <p><b>Posted By:</b> {currentOrder.postedByName}</p>
+          <p><b>Posted Email:</b> {currentOrder.postedByEmail}</p>
+          <p><b>Buyer Name:</b> {currentOrder.buyerName}</p>
+          <p><b>Buyer Email:</b> {currentOrder.buyerEmail}</p>
+          <p><b>Date:</b> {currentOrder.date}</p>
+      </div> }
 
-      <div style={{ marginTop: "3em" }}>
-        <CRow className="align-items-center">
-          <CCol col="12" xl className="mb-3 mb-xl-0">
-            <CButton block color="primary" onClick={(e)=>handleCurrentPost(e, currentPost)}>
-              Yes
-            </CButton>
-          </CCol>
-          <CCol col="12" xl className="mb-3 mb-xl-0">
-            <CButton block color="danger" onClick={handleDialogClose}>
-              No
-            </CButton>
-          </CCol>
-        </CRow>
-      </div>
-        </Paper>
-      </MyDialog>
-
-      <MyDialog
-        title="Delete Post"
-        isOpen={isDeleteDialogOpen}
-        onClose={handleDeleteDialogClose}
-      >
-        <Paper style={{ padding: "2em" }}>
-          <div>
-            <p>Are you sure you want to delete the post?</p>
-          </div>
-
-          <div style={{ marginTop: "3em" }}>
-            <CRow className="align-items-center">
-              <CCol col="12" xl className="mb-3 mb-xl-0">
-                <CButton block color="primary"  onClick={(e)=>handleDeleteCurrentPost(e, currentPost)}>
-                  Yes
-                </CButton>
-              </CCol>
-              <CCol col="12" xl className="mb-3 mb-xl-0">
-                <CButton block color="danger" onClick={handleDeleteDialogClose}>
-                  No
-                </CButton>
-              </CCol>
-            </CRow>
-          </div>
-        </Paper>
+        <div style={{ marginTop: "3em" }}>
+          <CRow className="align-items-center">
+            <CCol col="12" xl className="mb-3 mb-xl-0">
+              <CButton block color="danger" onClick={handleDialogClose}>
+                Close
+              </CButton>
+            </CCol>
+          </CRow>
+        </div>
+      </Paper>
       </MyDialog>
     </div>
   );

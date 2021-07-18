@@ -32,6 +32,9 @@ const HeaderComponent = () => {
                         {requireAuth() && (
                             <Nav.Link href="#profile">Profile</Nav.Link>
                         )}
+                        {requireAuth() && (
+                            <Nav.Link href="#my-orders">Orders</Nav.Link>
+                        )}
                     </Nav>
                     {requireAuth() ? <LogoutButton /> : <LoginButton />}
                 </Navbar.Collapse>
