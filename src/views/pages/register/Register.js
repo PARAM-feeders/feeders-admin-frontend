@@ -118,7 +118,7 @@ const Register = () => {
                       autoComplete="new-password"
                     />
                   </CInputGroup> */}
-                  <CButton color="success" block onClick={onSignupSubmit}>
+                  <CButton color="primary" block onClick={onSignupSubmit}>
                     Create Account
                   </CButton>
                   <Link to="/login">

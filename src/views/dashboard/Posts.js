@@ -126,7 +126,7 @@ const Posts = () => {
       title: "Post Status",
       field: "isApproved",
       render: rowData => {
-        return rowData.isApproved === true ? <p style={{fontSize: '1rem'}} className="badge badge-success" >Yes</p> : <p style={{fontSize: '1rem'}} className="badge badge-danger">No</p>}
+        return rowData.isApproved === true ? <p style={{fontSize: '1rem'}} className="badge badge-success" >Approved</p> : <p style={{fontSize: '1rem'}} className="badge badge-danger">Yet to Approve</p>}
     },
     {
       title: "User Status",

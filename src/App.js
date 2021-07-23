@@ -23,6 +23,8 @@ const loading = (
 // Containers
 const TheLayout = React.lazy(() => import("./containers/TheLayout"));
 const Login = React.lazy(() => import("./views/pages/login/Login"));
+const Forgot = React.lazy(() => import("./views/pages/forgotPassword/ForgotPassword"));
+const ResetPassword = React.lazy(() => import("./views/pages/resetPassword/ResetPassword"));
 const Register = React.lazy(() => import("./views/pages/register/Register"));
 const Home = React.lazy(() => import("./frontend-containers/Layout"));
 const Toaster = React.lazy(() => import('./views/notifications/toaster/Toaster'));
@@ -109,6 +111,18 @@ class App extends Component {
               path="/login"
               name="Login Page"
               render={(props) => <Login />}
+            />
+             <Route
+              exact
+              path="/forgot"
+              name="Forgot Password Page"
+              render={(props) => <Forgot />}
+            />
+            <Route
+              exact
+              path="/password/reset/:id"
+              name="Forgot Password Page"
+              render={(props) => <ResetPassword />}
             />
             <Route
               exact

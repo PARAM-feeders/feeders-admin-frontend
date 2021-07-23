@@ -18,51 +18,43 @@ import {
   CInputGroupText,
   CRow,
 } from "@coreui/react";
-import React, { useState, useEffect}  from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Login = () => {
   const history = useHistory();
-  const loc = useLocation();
-  console.log("histury", history, "loc", loc.state)
-  const [userName, setUserName] = useState("");
+  const { id } = useParams();
+  console.log(id);
+
   const [userPassword, setUserPassword] = useState("");
+  const [userConfirmPassword, setUserConfirmPassword] = useState("");
   const [showError, setShowError] = useState(false);
   // ToDo: Show error message in toast message
-  const [loginError, setLoginError] = useState("");
+  const [forgotPasswordError, setForgotPasswordError] = useState("");
   const [showSuccessToast, setSuccessToast] = useState(false);
   // ToDo: Show error message in toast message
   const [showSuccessMessage, setSuccessMessage] = useState("");
   const auth = new AuthService();
 
-  useEffect(() => {
-    if(loc.state != undefined){
-      setSuccessMessage("Password Successfully changed");
-     setSuccessToast(true);
-     setTimeout(() => {
-       setSuccessToast(false);
-     }, 3000);
-    }
-  }, []);
-
-  const onLoginSubmit = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    const email = userName;
     const password = userPassword;
-    
+    const confirmPassword = userConfirmPassword;
 
-    if (email && password) {
-      auth.login(email, password).then((result) => {
-        if (!result.token) {
-          console.log("result", result);
+    if (password) {
+      auth.resetPassword(password, confirmPassword, id).then((result) => {
+        console.log("result", result);
+        if (!result.success) {
+        //   console.log("result", result);
           if(result.msg != undefined)
-         { setLoginError(result.msg);
+         { setForgotPasswordError(result.msg);
           setShowError(true);
           setTimeout(() => {
             setShowError(false);
           }, 3000);}
           else{
-            setLoginError(result.errors[0].msg);
+            setForgotPasswordError(result.errors[0].msg);
           setShowError(true);
           setTimeout(() => {
             setShowError(false);
@@ -70,9 +62,12 @@ const Login = () => {
           }
           return;
         }
-      
-        auth.finishAuthentication(result.token);
-        auth.isAdmin() ? history.push("/dashboard") : history.push("/");
+   
+        history.push({  
+          pathname: '/login',
+          state: true
+          })
+        
       });
     }
   };
@@ -86,8 +81,8 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h1>Login</h1>
-                    <p className="text-muted">Sign In to your account</p>
+                    <h1>Reset Password</h1>
+                    <p className="text-muted">Enter your new password</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
                         <CInputGroupText>
@@ -96,34 +91,32 @@ const Login = () => {
                       </CInputGroupPrepend>
                       <CInput
                         type="text"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                        placeholder="Username"
-                        autoComplete="username"
+                        value={userPassword}
+                        onChange={(e) => setUserPassword(e.target.value)}
+                        placeholder="password"
                       />
                     </CInputGroup>
-                    <CInputGroup className="mb-4">
+                    <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
                         <CInputGroupText>
-                          <CIcon name="cil-lock-locked" />
+                          <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
                       <CInput
-                        type="password"
-                        value={userPassword}
-                        onChange={(e) => setUserPassword(e.target.value)}
-                        placeholder="Password"
-                        autoComplete="current-password"
+                        type="text"
+                        value={userConfirmPassword}
+                        onChange={(e) => setUserConfirmPassword(e.target.value)}
+                        placeholder="confirm password"
                       />
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
                         <CButton
-                          onClick={onLoginSubmit}
+                          onClick={onSubmit}
                           color="primary"
                           className="px-4"
                         >
-                          Login
+                          Submit
                         </CButton>
                       </CCol>
                       <CCol xs="6" className="text-right">
@@ -150,9 +143,10 @@ const Login = () => {
                     Oops!!
                   </CToastHeader>
                   <CToastBody>
-                    {loginError}
+                    {forgotPasswordError}
                   </CToastBody>
                 </CToast>
+
                 <CToast
                   color="success"
                   show={showSuccessToast}
@@ -168,31 +162,6 @@ const Login = () => {
                 </CToast>
               </CToaster>
               
-              <CCard
-                className="text-white bg-primary py-5 d-md-down-none"
-                style={{ width: "44%" }}
-              >
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton
-                        color="primary"
-                        className="mt-3"
-                        active
-                        tabIndex={-1}
-                      >
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard>
             </CCardGroup>
           </CCol>
         </CRow>

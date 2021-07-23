@@ -37,3 +37,6 @@ body{
  .h50{
      height: 50vh;
  }
+ li.dropdown.nav-item{
+    list-style-type: none!important;
+ }

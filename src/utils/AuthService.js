@@ -1,11 +1,12 @@
 import { EventEmitter } from "events";
 import jwtDecode from "jwt-decode";
 import { isTokenExpired } from "./jwtHelper";
+import { useParams } from "react-router-dom";
 
 
 export default class AuthService extends EventEmitter {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     // binds login functions to keep this context
     this.login = this.login.bind(this);
@@ -14,6 +15,14 @@ export default class AuthService extends EventEmitter {
   _doAuthentication(endpoint, values) {
     return this.fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
       method: "POST",
+      body: JSON.stringify(values),
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  _doAuthenticationPut(endpoint, values) {
+    return this.fetch(`${process.env.REACT_APP_API_URL}/${endpoint}`, {
+      method: "PUT",
       body: JSON.stringify(values),
       headers: { "Content-Type": "application/json" },
     });
@@ -31,6 +40,14 @@ export default class AuthService extends EventEmitter {
 
   login(email, password) {
     return this._doAuthentication("auth", { email, password });
+  }
+
+  forgotPassword(email) {
+    return this._doAuthentication("auth/forgot", { email });
+  }
+
+ resetPassword(password, confirmPassword , resetToken) {
+    return this._doAuthenticationPut("auth/password/reset/" + resetToken, { password, confirmPassword });
   }
 
   signup(name, email, password) {

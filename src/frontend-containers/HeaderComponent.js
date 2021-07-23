@@ -3,6 +3,7 @@ import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import LogoutButton from "src/components/LogoutButton";
+import TheHeaderDropdown from "src/frontend-containers/TheHeaderDropdown";
 import LoginButton from "../components/LoginButton";
 import AuthService from "../utils/AuthService";
 const auth = new AuthService();
@@ -29,14 +30,8 @@ const HeaderComponent = () => {
                         {requireAuth() && (
                         <Nav.Link href="#posts">Posts</Nav.Link>
                         )}
-                        {requireAuth() && (
-                            <Nav.Link href="#profile">Profile</Nav.Link>
-                        )}
-                        {requireAuth() && (
-                            <Nav.Link href="#my-orders">Orders</Nav.Link>
-                        )}
-                    </Nav>
-                    {requireAuth() ? <LogoutButton /> : <LoginButton />}
+                  </Nav>
+                    {requireAuth() ? <TheHeaderDropdown /> : <LoginButton />}
                 </Navbar.Collapse>
             </Navbar>
         </div>

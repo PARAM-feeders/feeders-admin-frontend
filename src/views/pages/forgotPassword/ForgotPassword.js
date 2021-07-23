@@ -18,51 +18,38 @@ import {
   CInputGroupText,
   CRow,
 } from "@coreui/react";
-import React, { useState, useEffect}  from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 const Login = () => {
   const history = useHistory();
-  const loc = useLocation();
-  console.log("histury", history, "loc", loc.state)
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [showError, setShowError] = useState(false);
   // ToDo: Show error message in toast message
-  const [loginError, setLoginError] = useState("");
+  const [forgotPasswordError, setForgotPasswordError] = useState("");
   const [showSuccessToast, setSuccessToast] = useState(false);
   // ToDo: Show error message in toast message
   const [showSuccessMessage, setSuccessMessage] = useState("");
   const auth = new AuthService();
 
-  useEffect(() => {
-    if(loc.state != undefined){
-      setSuccessMessage("Password Successfully changed");
-     setSuccessToast(true);
-     setTimeout(() => {
-       setSuccessToast(false);
-     }, 3000);
-    }
-  }, []);
-
-  const onLoginSubmit = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
     const email = userName;
-    const password = userPassword;
-    
 
-    if (email && password) {
-      auth.login(email, password).then((result) => {
-        if (!result.token) {
-          console.log("result", result);
+    if (email) {
+      auth.forgotPassword(email).then((result) => {
+        console.log("result", result);
+        if (!result.success) {
+        //   console.log("result", result);
           if(result.msg != undefined)
-         { setLoginError(result.msg);
+         { setForgotPasswordError(result.msg);
           setShowError(true);
           setTimeout(() => {
             setShowError(false);
           }, 3000);}
           else{
-            setLoginError(result.errors[0].msg);
+            setForgotPasswordError(result.errors[0].msg);
           setShowError(true);
           setTimeout(() => {
             setShowError(false);
@@ -70,9 +57,12 @@ const Login = () => {
           }
           return;
         }
-      
-        auth.finishAuthentication(result.token);
-        auth.isAdmin() ? history.push("/dashboard") : history.push("/");
+        setSuccessMessage("Reset password email sent successfully");
+        setSuccessToast(true);
+        setTimeout(() => {
+          setSuccessToast(false);
+        }, 3000);
+        
       });
     }
   };
@@ -86,8 +76,8 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h1>Login</h1>
-                    <p className="text-muted">Sign In to your account</p>
+                    <h1>Forgot Password</h1>
+                    <p className="text-muted">Enter your email</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
                         <CInputGroupText>
@@ -102,34 +92,20 @@ const Login = () => {
                         autoComplete="username"
                       />
                     </CInputGroup>
-                    <CInputGroup className="mb-4">
-                      <CInputGroupPrepend>
-                        <CInputGroupText>
-                          <CIcon name="cil-lock-locked" />
-                        </CInputGroupText>
-                      </CInputGroupPrepend>
-                      <CInput
-                        type="password"
-                        value={userPassword}
-                        onChange={(e) => setUserPassword(e.target.value)}
-                        placeholder="Password"
-                        autoComplete="current-password"
-                      />
-                    </CInputGroup>
                     <CRow>
                       <CCol xs="6">
                         <CButton
-                          onClick={onLoginSubmit}
+                          onClick={onSubmit}
                           color="primary"
                           className="px-4"
                         >
-                          Login
+                          Submit
                         </CButton>
                       </CCol>
                       <CCol xs="6" className="text-right">
-                      <Link to="/forgot">
+                      <Link to="/login">
                         <CButton color="link" className="px-0">
-                          Forgot password?
+                          Remember password?
                         </CButton>
                         </Link>
                       </CCol>
@@ -150,9 +126,10 @@ const Login = () => {
                     Oops!!
                   </CToastHeader>
                   <CToastBody>
-                    {loginError}
+                    {forgotPasswordError}
                   </CToastBody>
                 </CToast>
+
                 <CToast
                   color="success"
                   show={showSuccessToast}
@@ -168,31 +145,6 @@ const Login = () => {
                 </CToast>
               </CToaster>
               
-              <CCard
-                className="text-white bg-primary py-5 d-md-down-none"
-                style={{ width: "44%" }}
-              >
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton
-                        color="primary"
-                        className="mt-3"
-                        active
-                        tabIndex={-1}
-                      >
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard>
             </CCardGroup>
           </CCol>
         </CRow>

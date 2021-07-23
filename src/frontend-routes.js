@@ -11,13 +11,13 @@ const MyOrders = React.lazy(() => import('./views/pages/orders/MyOrders'));
 const routes = [
   { path: '/', exact: true, name: 'Home', component : Home },
   { path: '/about', exact: true, name: 'About', component : About },
-  { path: '/profile', exact: true, name: 'Profile', component : Profile, isAuth : "true" },
-  { path: '/posts', exact: true, name: 'Posts', component : Posts },
-  { path: '/my-posts', exact: true, name: 'Posts', component : MyPosts },
-  { path: '/post/:id', exact: true, name: 'PostDetail', component : PostDetail },
-  { path: '/create-post', exact: true, name: 'CreatePost', component : CreatePost },
-  { path: '/update-post/:id', exact: true, name: 'UpdatePost', component : CreatePost },
-  { path: '/my-orders', exact: true, name: 'MyOrders', component : MyOrders }
+  { path: '/profile', exact: true, name: 'Profile', component : Profile, isAuth :true },
+  { path: '/posts', exact: true, name: 'Posts', component : Posts,isAuth :true },
+  { path: '/my-posts', exact: true, name: 'Posts', component : MyPosts, isAuth :true },
+  { path: '/post/:id', exact: true, name: 'PostDetail', component : PostDetail, isAuth :true },
+  { path: '/create-post', exact: true, name: 'CreatePost', component : CreatePost, isAuth :true },
+  { path: '/update-post/:id', exact: true, name: 'UpdatePost', component : CreatePost, isAuth :true },
+  { path: '/my-orders', exact: true, name: 'MyOrders', component : MyOrders, isAuth :true }
 ];
   
 export default routes;
