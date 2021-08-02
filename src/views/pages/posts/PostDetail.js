@@ -179,7 +179,7 @@ const PostDetail = () => {
 
     return (
       <div>
-          <Button variant="danger" onClick={handleShowOrderConfirm} >
+          <Button className="green-btn" onClick={handleShowOrderConfirm} >
             Order Now
           </Button>
 

@@ -1,6 +1,6 @@
-import { sygnet } from './sygnet'
+// import { sygnet } from './sygnet'
 import { logo } from './logo'
-import { logoNegative } from './logo-negative'
+// import { logoNegative } from './logo-negative'
 
 import {
   cibSkype,
@@ -131,9 +131,9 @@ import {
 } from '@coreui/icons'
 
 export const icons = Object.assign({}, {
-  sygnet,
+  // sygnet,
   logo,
-  logoNegative
+  // logoNegative
 }, {
   cilAlignCenter,
   cilAlignLeft,

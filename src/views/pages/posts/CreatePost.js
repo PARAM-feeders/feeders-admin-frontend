@@ -167,11 +167,11 @@ const CreatePost = () => {
           />
         </div>*/}
         {id && id ?
-          <button type="submit" className="btn btn-primary btn-block mb-4" onClick={() => UpdateForm()}>
+          <button type="submit" className="btn green-btn btn-block mb-4" onClick={() => UpdateForm()}>
             Update
           </button>
           :
-          <button type="submit" className="btn btn-primary btn-block mb-4" onClick={() => SaveForm()}>
+          <button type="submit" className="btn green-btn btn-block mb-4" onClick={() => SaveForm()}>
             Submit
           </button>}
       </form>

@@ -6,6 +6,7 @@ import LogoutButton from "src/components/LogoutButton";
 import TheHeaderDropdown from "src/frontend-containers/TheHeaderDropdown";
 import LoginButton from "../components/LoginButton";
 import AuthService from "../utils/AuthService";
+import logo from "../assets/icons/logo.png";
 const auth = new AuthService();
 
 const requireAuth = () => {
@@ -21,8 +22,8 @@ const HeaderComponent = () => {
 
     return (
         <div>
-            <Navbar fixed="top" bg="dark" variant="dark" expand="lg">
-                <Navbar.Brand href="#home">Feed the Need</Navbar.Brand>
+            <Navbar fixed="top" expand="lg">
+                <Navbar.Brand href="#home"><img src={logo} alt="logo" width="42px"/>Feed the Need</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
