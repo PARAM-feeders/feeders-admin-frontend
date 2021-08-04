@@ -123,7 +123,7 @@ const WidgetsDropdown = (props) => {
         </CWidgetDropdown>
       </CCol>
 
-      <CCol sm="6" lg="3">
+      {/* <CCol sm="6" lg="3">
         <CWidgetDropdown
           color="gradient-info"
           header="9.823"
@@ -154,7 +154,7 @@ const WidgetsDropdown = (props) => {
           </CDropdown>
         </CWidgetDropdown>
       </CCol>
-      
+       */}
 
       {/* <CCol sm="6" lg="3">
         <CWidgetDropdown

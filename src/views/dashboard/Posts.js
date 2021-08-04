@@ -116,7 +116,7 @@ const Posts = () => {
     },
     {
       title: "Email",
-      field: "email",
+      field: "postedByEmail",
     },
     {
       title: "Location",
