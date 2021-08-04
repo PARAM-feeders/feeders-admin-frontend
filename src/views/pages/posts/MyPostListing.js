@@ -54,7 +54,9 @@ const Posts = () => {
       <div className="row">
         {posts && posts.length !=0 ? posts.map((post, index) => {
           return <Post list={post} key={index} showApproved = {true}/>
-        }) :  "No posts yet"}
+        // }) :  "No posts yet"}
+         }) : "You did not make any donations yet. If you would like to support us in helping more people in need, click on 'Create Post' and make a donation now!"}
+
 
       </div>
 }

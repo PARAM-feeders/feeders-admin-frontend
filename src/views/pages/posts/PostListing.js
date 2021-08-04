@@ -61,7 +61,7 @@ const Posts = () => {
       <div className="row">
         {posts && posts.length !=0 ? posts.map((post, index) => {
           return <Post list={post} key={index} />
-        }) : "No posts yet"}
+        }) : "We are working with many donors to collaborate with and collect more donations to make sure our service reaches to many more donor recipients. Currently, there are no donations available in our circle. We will push new posts as soon as we receive any donations from any of our donors. We are looking forward to help you in all possible ways, please come back again."}
       </div>
 
     }
