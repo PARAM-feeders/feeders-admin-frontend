@@ -176,9 +176,7 @@ const Login = () => {
                   <div>
                     <h2>Sign up</h2>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
+                      Join Us in spreading love and care. Become a Donor, Donor Recepient or a Volunteer today by signing up here. It won't take more than a minute or two!
                     </p>
                     <Link to="/register">
                       <CButton
