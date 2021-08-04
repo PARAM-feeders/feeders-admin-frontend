@@ -29,8 +29,8 @@ const Post = props => {
             {post?.list.description}
           </p>
           
-          <Link to={"/post/" + post?.list._id} className="btn btn-outline-success btn-sm">
-            Read More
+          <Link to={"/post/" + post?.list._id} className="btn light-green-btn">
+            READ MORE
           </Link>
         </div>
       </div>

@@ -46,13 +46,13 @@ const Posts = () => {
     <div className="container" id="post">
 
       <div className="row justify-content-between mb-4">
-        <h2>All Approved Posts</h2>
+        <h2 className="heading">All Approved Posts</h2>
         <div>
-        <Link to="/my-posts">  <button className="btn btn-round btn-danger " type="button">
-          My Posts
+        <Link to="/my-posts">  <button className="btn btn-round green-btn " type="button">
+          MY POSTS
         </button></Link>
-        <Link to="/create-post">  <button className="btn btn-round btn-danger " type="button">
-          Create Post
+        <Link to="/create-post">  <button className="btn btn-round orange-btn " type="button">
+          CREATE POST
         </button></Link>
         </div>
       </div>
