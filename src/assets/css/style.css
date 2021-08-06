@@ -322,6 +322,12 @@ footer .copyright {
   padding-top: 3rem;
 }
 
+#post .card-text{
+  line-height: 1.5em;
+  height: 3em;
+  overflow: hidden;
+}
+
 #post-detail .title {
   font-size: 40px;
   font-weight: 500;
