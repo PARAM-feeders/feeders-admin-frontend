@@ -15,7 +15,7 @@ body {
   height: 98vh;
 }
 
-.navbar.navbar-dark .navbar-nav .nav-link{
+.navbar.navbar-dark .navbar-nav .nav-link {
   font-size: 16px;
 }
 
@@ -72,7 +72,7 @@ li.dropdown.nav-item {
 .green-btn {
   background-color: var(--green-btn) !important;
   color: var(--white) !important;
-  border: none!important;
+  border: none !important;
   font-size: 16px;
 }
 
@@ -113,7 +113,7 @@ li.dropdown.nav-item {
   font-size: 1rem;
 }
 
-.navbar{
+.navbar {
   background-color: #fff !important;
   box-shadow: 0 0 60px 0 rgb(0 0 0 / 7%);
   -webkit-box-shadow: 0 10px 15px rgb(25 25 25 / 10%);
@@ -124,7 +124,7 @@ li.dropdown.nav-item {
 }
 
 .nav-link {
-  color: #252525!important;
+  color: #252525 !important;
   font-size: 16px;
 }
 
@@ -178,23 +178,22 @@ li.dropdown.nav-item {
   color: #6e6e6e;
 }
 
-.carousel-caption{
-  top: 40%!important;
-  bottom: 0!important;
-  color:#252525!important;
-
+.carousel-caption {
+  top: 40% !important;
+  bottom: 0 !important;
+  color: #252525 !important;
 }
-.carousel-caption h5{
+.carousel-caption h5 {
   font-size: 70px;
 }
 
-.carousel-caption p{
+.carousel-caption p {
   font-size: 18px;
 }
 
-.second-slide{
-  left: 0!important;
-  right: 33%!important;
+.second-slide {
+  left: 0 !important;
+  right: 33% !important;
 }
 .bg-section {
   background-image: url("../icons/bg11.jpg");
@@ -241,7 +240,7 @@ li.dropdown.nav-item {
   margin: 0;
 }
 
-.c-avatar-img{
+.c-avatar-img {
   border: 2px solid gray;
 }
 
@@ -322,7 +321,7 @@ footer .copyright {
   padding-top: 3rem;
 }
 
-#post .card-text{
+#post .card-text {
   line-height: 1.5em;
   height: 3em;
   overflow: hidden;
@@ -336,12 +335,25 @@ footer .copyright {
 }
 
 #post-detail .description {
-  font-size: 16px!important;
+  font-size: 16px !important;
   font-weight: normal;
   line-height: 30px;
   color: #6e6e6e;
 }
 
-#post-detail .product_meta p{
-  font-size: 16px!important;
+#post-detail .product_meta p {
+  font-size: 16px !important;
+}
+
+.login-btn-div {
+  align-items: center;
+}
+.forgot-password-btn:focus {
+  text-decoration: none !important;
+  box-shadow: none !important;
+}
+
+.create-acc-btn {
+  width: auto!important;
+  margin: 0 auto;
 }

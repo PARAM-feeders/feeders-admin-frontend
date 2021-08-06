@@ -115,7 +115,7 @@ const Login = () => {
                         autoComplete="current-password"
                       />
                     </CInputGroup>
-                    <CRow>
+                    <CRow className="login-btn-div">
                       <CCol xs="6">
                         <CButton
                           onClick={onLoginSubmit}
@@ -127,7 +127,7 @@ const Login = () => {
                       </CCol>
                       <CCol xs="6" className="text-right">
                       <Link to="/forgot">
-                        <CButton color="link" className="px-0">
+                        <CButton color="link" className="px-0 forgot-password-btn">
                           Forgot password?
                         </CButton>
                         </Link>
