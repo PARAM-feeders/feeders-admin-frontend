@@ -26,11 +26,11 @@ const Profile = () => {
 
   // console.log(user);
   return (
-    loading ? <div class="text-center w-100 h50 d-flex align-items-center justify-content-center"><CSpinner /> </div>:
+    loading ? <div className="text-center w-100 h50 d-flex align-items-center justify-content-center"><CSpinner /> </div>:
       
     userMetadata && (
       <div id="profile" className="d-flex flex-column justify-content-center align-items-center">
-        <img src={userMetadata?.picture} alt={userMetadata.name}  class="rounded-circle mb-4"/>
+        <img src={userMetadata?.picture} alt={userMetadata.name}  className="rounded-circle mb-4"/>
         <h2>{userMetadata?.name}</h2>
         <p>{userMetadata?.email}</p>
      
