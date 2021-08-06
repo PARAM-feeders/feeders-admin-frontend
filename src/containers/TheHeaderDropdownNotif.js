@@ -9,12 +9,13 @@ import {
 import CIcon from '@coreui/icons-react'
 import Pusher from 'pusher-js';
 import React, { lazy, useEffect, useState } from 'react';
+import { Link, useHistory } from "react-router-dom";
 
 const TheHeaderDropdownNotif = () => {
   const [count, setCount] = useState(0);
   const [notificationData, setNotificationData] = useState([]);
   const [newData, setNewData] = useState([]);
-
+  const history = useHistory();
   useEffect(() => {
     const pusher = new Pusher('cf5a8b64cd1a3450c0cf', {
       cluster: 'us2',
@@ -46,6 +47,11 @@ const TheHeaderDropdownNotif = () => {
     setNotificationData(results);
     setCount(results.length);
     setNewData(results);
+    if (item.type == "users") {
+      history.push("/admin/users");
+    } else {
+      history.push("/admin/posts");
+    }
   }
 
 
