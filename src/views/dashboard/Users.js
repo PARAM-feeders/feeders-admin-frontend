@@ -5,6 +5,7 @@ import MaterialTable from "material-table";
 import React, { lazy, useEffect, useState } from 'react';
 import AuthService from "../../utils/AuthService";
 import MyDialog from "./MyDialog.js";
+import Pusher from 'pusher-js';
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
@@ -80,7 +81,7 @@ const Users = () => {
       });
 };
 
-  useEffect(() => {
+  const rerender = () => {
     const fetchData = async () => {
       await fetch(`${apiUrl}/admin/users/all`, {
         method: 'get',
@@ -105,7 +106,19 @@ const Users = () => {
     }
 
     auth.isAuthenticated && fetchData();
-  }, [users]);
+  }
+
+  useEffect(() => {
+    const pusher = new Pusher('cf5a8b64cd1a3450c0cf', {
+      cluster: 'us2',
+      encrypted: true
+    });
+    const channel = pusher.subscribe('1221714');
+    channel.bind('re-render-user', data => {
+      rerender();
+    });
+    rerender();
+  }, []);
 
   const data = users && users;
 

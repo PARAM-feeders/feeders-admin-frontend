@@ -5,6 +5,7 @@ import { CButton, CCol, CRow } from "@coreui/react";
 import { Paper } from "@material-ui/core";
 import MaterialTable from "material-table";
 import MyDialog from "./MyDialog.js";
+import Pusher from 'pusher-js';
 
 const WidgetsDropdown = lazy(() => import("../widgets/WidgetsDropdown.js"));
 const WidgetsBrand = lazy(() => import("../widgets/WidgetsBrand.js"));
@@ -75,7 +76,7 @@ const Posts = () => {
     setIsDeleteDialogOpen(false);
   };
 
-  useEffect(() => {
+  const rerender = () => {
     const fetchData = async () => {
       await fetch(`${apiUrl}/admin/posts/all`, {
         method: 'get',
@@ -100,6 +101,18 @@ const Posts = () => {
     }
 
     auth.isAuthenticated && fetchData();
+  }
+
+  useEffect(() => {
+    const pusher = new Pusher('cf5a8b64cd1a3450c0cf', {
+      cluster: 'us2',
+      encrypted: true
+    });
+    const channel = pusher.subscribe('1221714');
+    channel.bind('re-render', data => {
+      rerender();
+    });
+    rerender();
   }, [isSuccess, currentPost]);
 
   const data = posts && posts;

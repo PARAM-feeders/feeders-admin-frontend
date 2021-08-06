@@ -24,7 +24,6 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 const Login = () => {
   const history = useHistory();
   const loc = useLocation();
-  console.log("histury", history, "loc", loc.state)
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [showError, setShowError] = useState(false);
