@@ -114,7 +114,7 @@ const Users = () => {
       encrypted: true
     });
     const channel = pusher.subscribe('1221714');
-    channel.bind('re-render-user', data => {
+    channel.bind('re-render', data => {
       rerender();
     });
     rerender();

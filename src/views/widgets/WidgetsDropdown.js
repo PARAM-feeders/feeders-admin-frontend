@@ -35,7 +35,7 @@ const WidgetsDropdown = (props) => {
             if (!result.success) {
               throw (result);
             }
-            console.log("result", result.users);
+            // console.log("result", result.users);
             setUsers(result.users);
           }
         ).catch(err => {
