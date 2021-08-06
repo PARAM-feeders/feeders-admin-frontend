@@ -12,7 +12,7 @@ const About = () => {
     <div className="main-heading">
       <div className="title">About Feed the Need</div>
       <p className="sub-title">
-      Feed the Need is a Non Profit Organisation in Ontario headquartered in Waterloo. Our organisation strives to eliminate hunger by collecting food & essentials donations from hundreds of donars from various locations in the province. We are continuously working hard and leveraging to multiply our reach.
+        Feed the Need is a Non Profit Organisation in Ontario, headquartered in Waterloo. Our organisation strives to eliminate hunger by collecting food & essentials donations from hundreds of donars from various locations in the province, which in turn reduces food waste in huge scale and fulfills the daily necessities of the needy. We are continuously working hard and leveraging to multiply our reach.
       </p>
     </div>
     <div>
