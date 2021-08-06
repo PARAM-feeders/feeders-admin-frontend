@@ -20,8 +20,8 @@ const Home = () => {
             alt="First slide"
           />
           <Carousel.Caption>
-            <h5>First slide label</h5>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <h5>Looking For Help?</h5>
+            <p>Immunity Builders | Masks | Cooked Meals | Grocery Kits</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -31,8 +31,8 @@ const Home = () => {
             alt="First slide"
           />
           <Carousel.Caption className="second-slide">
-            <h5>Second slide label</h5>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <h5>Let's Stand By Those In NEED</h5>
+            <p>Help by Donating Food and Daily Essentials.</p>
           </Carousel.Caption>
         </Carousel.Item>
        
@@ -43,46 +43,42 @@ const Home = () => {
         </div>
         <div className="content-wrapper">
           <div className="main-heading">
-            <div className="title">Title</div>
+            <div className="title">FOOD RELIEF</div>
             <p className="sub-title">
-              Lorem ipsum dolor sit amet, consectetur adipisicing sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua enim minim.
+            At this great hour of need, Feed the Need, in close coordination with local supporters & donars, has stepped in to provide relief by providing food to many across Ontario.
             </p>
           </div>
           <div>
             <div className="features">
               <div>
-                <img src={icon1} alt="" />
+                <img src={icon1} alt="Banana Icon" />
               </div>
               <div className="content">
-                <p className="title">Natural Foods</p>
+                <p className="title">Fruits and Veggies</p>
                 <p className="text">
-                  Lorem ipsum dolor conse ctetur adipisicing elit sed do eiusmo
-                  temincididunt labore apericons.
+                Hundreds of thousands of us rely on Fruits & Veggies for a fact that eating the rainbow of veggies and fruits can help us stay healthier and fight off diseases. We can make this site a vital source for our fruit and vegetable donations...
                 </p>
               </div>
             </div>
             <div className="features">
               <div>
-                <img src={icon2} alt="" />
+                <img src={icon2} alt="Milk Icon" />
               </div>
               <div className="content">
-                <p className="title">Natural Foods</p>
+                <p className="title">Dairy Products</p>
                 <p className="text">
-                  Lorem ipsum dolor conse ctetur adipisicing elit sed do eiusmo
-                  temincididunt labore apericons.
+                  We all know that the Milk products contain a number of substances that our body needs ‒ calcium, protein, fat, potassium, vitamins A, B, B12 and D, zinc, etc. Let's help the needy by donating such Nutritious and Mineral rich food.
                 </p>
               </div>
             </div>
             <div className="features">
               <div>
-                <img src={icon3} alt="" />
+                <img src={icon3} alt="Vegetable Icon" />
               </div>
               <div className="content">
-                <p className="title">Natural Foods</p>
+                <p className="title">Other Daily Essentials</p>
                 <p className="text">
-                  Lorem ipsum dolor conse ctetur adipisicing elit sed do eiusmo
-                  temincididunt labore apericons.
+                  You can also donate other daily essentials alongside food.
                 </p>
               </div>
             </div>
@@ -91,10 +87,9 @@ const Home = () => {
       </section>
 
       <section className="bg-section">
-        <div className="title">Title</div>
+        <div className="title">Stretch Your Helping Hand</div>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua enim minim.
+        Join us to Feed the Need, add goodwill to your special occasions by spreading joy among those who need your care and support the most. Every $1 donated approximately equals 2 meals! Donate Now.
         </p>
       </section>
 
@@ -102,10 +97,9 @@ const Home = () => {
         <div className="carousel">
           <div className="heading">
             <img src={thumbsup} alt="testimonial" />
-            <h1>Client’s Say</h1>
+            <h1>Impact Stories</h1>
             <p className="sub-heading">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-              eiusmotempor incididunt labore dolore magna aliqua minim veniam
+              We hear from our valuable Donars and Donar Recipients.
             </p>
           </div>
           <Carousel variant="dark" interval={3000} pause={false} touch={true}>
@@ -113,17 +107,16 @@ const Home = () => {
             <div className="client-wrapper">
               <div className="client-text">
                 <p>
-                  Borem ipsum dolor sit amet consectetur adipisic ing elit sed
-                  do eiusmod tempor incididunt ut labore et dolore magaliqu enim
-                  ainim veniam.
+                "We thank Feed The Need for creating this wonderful platform that we could trust, to provide food to the needy. We are very impressed with the process, transparency and clarity the Foundation has exhibited."
                 </p>
-                <h4>Johnny J. Stewart</h4>
-                <span>Cambridge</span>
+                <h4>An Anonymous Donor</h4>
+                <span>Waterloo, ON.</span>
               </div>
               <div className="client-img">
                 <img
-                  src={test1}
+                  src={"https://img-premium.flaticon.com/png/512/1165/premium/1165674.png?token=exp=1628037988~hmac=71b9675a733cc5012155df786009cf8e"}
                   alt="client"
+                  width="50px"
                 />
               </div>
               </div>
@@ -132,17 +125,16 @@ const Home = () => {
             <div className="client-wrapper">
               <div className="client-text">
                 <p>
-                  Borem ipsum dolor sit amet consectetur adipisic ing elit sed
-                  do eiusmod tempor incididunt ut labore et dolore magaliqu enim
-                  ainim veniam.
+                “I had lost hope. I was worried; my sons were sleeping on an empty stomach daily.” - He is thankful to God for having shown him the path towards Feed the Need’s relief team.
                 </p>
-                <h4>Johnny J. Stewart</h4>
-                <span>Cambridge</span>
+                <h4>An Anonymous Donor Recipient</h4>
+                <span>Cambridge, ON.</span>
               </div>
               <div className="client-img">
                 <img
-                  src={test1}
+                  src={"https://img-premium.flaticon.com/png/512/2102/premium/2102647.png?token=exp=1628037850~hmac=10cca7789b573ad463365cf6684f0acf"}
                   alt="client"
+                  width="50px"
                 />
               </div>
               </div>
