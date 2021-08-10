@@ -12,6 +12,9 @@ const CreatePost = () => {
   const [location, setLocations] = useState("");
   const [description, setDescription] = useState("");
   const [userMetaData, setUserMetadata] = useState([]);
+  const [postImage, setPostImage] = useState('')
+  const [postImagePreview, setPostImagePreview] = useState('https://res.cloudinary.com/rajith/image/upload/v1628569856/feed%20the%20need/download_rellxk.png')
+
   const auth = new AuthService();
   const apiUrl = process.env.REACT_APP_API_URL;
   const history = useHistory();
@@ -53,7 +56,7 @@ const CreatePost = () => {
     fetchData();
   }, []);
 
-  function SaveForm() {
+  const SaveForm = () => {
     fetch(`${apiUrl}/posts`, {
       method: 'post',
       headers: {
@@ -63,7 +66,7 @@ const CreatePost = () => {
       body: JSON.stringify({
         "name": name,
         "description": description,
-        "image": image,
+        "image": postImage,
         "location": location,
         "postedByName": userMetaData.name,
         "postedByEmail": userMetaData.email
@@ -87,7 +90,7 @@ const CreatePost = () => {
 
 
 
-  function UpdateForm() {
+  const UpdateForm = () => {
     fetch(`${apiUrl}/posts/${id}`, {
       method: 'put',
       headers: {
@@ -97,15 +100,15 @@ const CreatePost = () => {
       body: JSON.stringify({
         "name": name,
         "description": description,
-        "image": image,
+        "image": postImage,
         "location": location
       })
     }).then(res => res.json())
       .then(
         (result) => {
-          if (!result.success) {
-            throw (result);
-          }
+          // if (!result.success) {
+          //   throw (result);
+          // }
           history.push("/my-posts")
         },
         (error) => {
@@ -116,6 +119,23 @@ const CreatePost = () => {
       });
 
   }
+
+
+  const onChange = e => {
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setPostImagePreview(reader.result)
+                setPostImage(reader.result)
+            }
+        }
+
+        reader.readAsDataURL(e.target.files[0])
+
+    
+}
 
   return (
     <div id="create-post">
@@ -150,12 +170,49 @@ const CreatePost = () => {
           <input type="text" id="location" className="form-control" value={location} required onChange={(e) => setLocations(e.target.value)} placeholder="Location" />
         </div>
 
-        <div className="form-outline mb-4">
+        {/* <div className="form-outline mb-4">
           <label className="form-label" for="location">
             Image URL
           </label>
           <input type="text" id="location" className="form-control" value={image} required placeholder="Image URL" onChange={(e) => setImage(e.target.value)} />
-        </div>
+        </div> */}
+
+
+
+        <div className='form-group'>
+                            <label htmlFor='avatar_upload'>Image</label>
+                            <div className='d-flex align-items-center'>
+                                <div>
+                                    <figure className='postImage mr-3 item-rtl'>
+                                        <img
+                                            src={postImagePreview}
+                                            className='rounded-circle'
+                                            alt='Post Preview'
+                                            width= "80"
+                                            height = "80"
+                                        />
+                                    </figure>
+                                </div>
+                                <div className='custom-file'>
+                                    <input
+                                        type='file'
+                                        name='postImage'
+                                        className='custom-file-input'
+                                        id='customFile'
+                                        accept="images/*"
+                                        onChange={onChange}
+                                    />
+                                    <label className='custom-file-label' htmlFor='customFile'>
+                                        Choose Image
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
 
         {/* <div class="form-outline mb-4">
           <label for="upload-img">Example file input</label>
