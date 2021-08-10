@@ -33,12 +33,14 @@ const TheHeaderDropdown = () => {
       direction="down"
     >
       <CDropdownToggle className="c-header-nav-link" caret={false}>
-        <div className="c-avatar">
+        <div class="d-flex align-items-center"> <div className="c-avatar">
           <CImg
             src={'https://res.cloudinary.com/rajith/image/upload/v1626406581/feed%20the%20need/download_bovubh.jpg'}
-            className="c-avatar-img"
+            className="c-avatar-img mr-3"
             alt="admin@bootstrapmaster.com"
           />
+        </div>
+         <div className="wordBreak">{localStorage.getItem("name")}</div> 
         </div>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
@@ -70,24 +72,17 @@ const TheHeaderDropdown = () => {
           Comments
           <CBadge color="warning" className="mfs-auto">42</CBadge>
         </CDropdownItem> */}
-        <CDropdownItem
-          header
-          tag="div"
-          color="light"
-          className="text-center"
-        >
-          <strong>Settings</strong>
-        </CDropdownItem>
-        <CDropdownItem  onClick={profile}>
+
+        <CDropdownItem onClick={profile}>
           <CIcon name="cil-user" className="mfe-2" />Profile
         </CDropdownItem>
-        <CDropdownItem  onClick={order}>
+        <CDropdownItem onClick={order}>
           <CIcon name="cil-basket" className="mfe-2" />
           Orders
         </CDropdownItem>
         <CDropdownItem divider />
         <CDropdownItem onClick={signOut}>
-          <CIcon name="cil-lock-locked" className="mfe-2"/>
+          <CIcon name="cil-lock-locked" className="mfe-2" />
           Signout
         </CDropdownItem>
       </CDropdownMenu>

@@ -44,7 +44,8 @@ const CreatePost = () => {
                 throw (result);
               }
               setName(result.post.name);
-              setImage(result.post.image);
+              setPostImage(result.post.image);
+              setPostImagePreview(result.post.image);
               setLocations(result.post.location);
               setDescription(result.post.description);
             }

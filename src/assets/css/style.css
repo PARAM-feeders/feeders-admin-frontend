@@ -357,3 +357,13 @@ footer .copyright {
   width: auto!important;
   margin: 0 auto;
 }
+
+.wordBreak{
+  inline-size: 70px;
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 13ch;
+}

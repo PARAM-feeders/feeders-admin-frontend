@@ -72,7 +72,7 @@ export default class AuthService extends EventEmitter {
   finishAuthentication(token) {
     localStorage.setItem("token", token);
     localStorage.setItem("id", jwtDecode(token).user.id);
-    ;
+    localStorage.setItem("name", jwtDecode(token).user.name);
   }
 
   getToken() {
