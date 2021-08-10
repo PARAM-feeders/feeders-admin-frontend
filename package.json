@@ -45,7 +45,8 @@
     "test:cov": "npm test -- --coverage --watchAll=false",
     "test:debug": "react-scripts --inspect-brk test --runInBand",
     "eject": "react-scripts eject",
-    "changelog": "auto-changelog --starting-version 3.0.0 --commit-limit false --hide-credit"
+    "changelog": "auto-changelog --starting-version 3.0.0 --commit-limit false --hide-credit",
+    "deploy" : "react-scripts build && aws s3 sync build/ s3://feed-the-need"
   },
   "bugs": {
     "url": "https://github.com/coreui/coreui-free-react-admin-template/issues"
