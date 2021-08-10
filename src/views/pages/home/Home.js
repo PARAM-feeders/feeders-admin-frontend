@@ -89,7 +89,7 @@ const Home = () => {
       <section className="bg-section">
         <div className="title">Stretch Your Helping Hand</div>
         <p>
-        Join us to Feed the Need, add goodwill to your special occasions by spreading joy among those who need your care and support the most. Every $1 donated approximately equals 2 meals! Donate Now.
+        Join us to Feed the Need, add goodwill to your special occasions by spreading joy among those who need your care and support the most. Every $1 donated approximately equals 2 meals, or you can donate a meal or groceries too! Donate Now.
         </p>
       </section>
 
@@ -115,7 +115,7 @@ const Home = () => {
               <div className="client-img">
                 <img
                   src={"https://img-premium.flaticon.com/png/512/1165/premium/1165674.png?token=exp=1628037988~hmac=71b9675a733cc5012155df786009cf8e"}
-                  alt="client"
+                  alt="Anonymous Donor"
                   width="50px"
                 />
               </div>
@@ -133,7 +133,7 @@ const Home = () => {
               <div className="client-img">
                 <img
                   src={"https://img-premium.flaticon.com/png/512/2102/premium/2102647.png?token=exp=1628037850~hmac=10cca7789b573ad463365cf6684f0acf"}
-                  alt="client"
+                  alt="Anonymous Donor Recipient"
                   width="50px"
                 />
               </div>
@@ -143,17 +143,15 @@ const Home = () => {
             <div className="client-wrapper">
               <div className="client-text">
                 <p>
-                  Borem ipsum dolor sit amet consectetur adipisic ing elit sed
-                  do eiusmod tempor incididunt ut labore et dolore magaliqu enim
-                  ainim veniam.
+                  "I love the way how this organization is helping two kinds of people at the same time, Donors can donate the excess food or groceries and help Donor Recipients, and reduce food wastage!"
                 </p>
-                <h4>Johnny J. Stewart</h4>
-                <span>Cambridge</span>
+                <h4>Ashwin</h4>
+                <span>Waterloo, ON.</span>
               </div>
               <div className="client-img">
                 <img
                   src={test1}
-                  alt="client"
+                  alt="Ashwin's Image"
                 />
               </div>
               </div>
