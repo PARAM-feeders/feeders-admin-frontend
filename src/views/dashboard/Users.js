@@ -48,6 +48,7 @@ const Users = () => {
             // console.log("result", result);
             setUsers(result.users);
             handleDeleteDialogClose();
+            rerender();
           }
         ).catch(err => {
           console.log(err);
@@ -75,6 +76,7 @@ const Users = () => {
           }
           setUsers(result.users);
           handleDialogClose();
+          rerender();
         }
       ).catch(err => {
         console.log(err);

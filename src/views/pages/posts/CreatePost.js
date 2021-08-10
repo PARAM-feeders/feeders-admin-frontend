@@ -71,9 +71,9 @@ const CreatePost = () => {
     }).then(res => res.json())
       .then(
         (result) => {
-          if (!result.success) {
-            throw (result);
-          }
+          // if (!result.success) {
+          //   throw (result);
+          // }
           history.push("/posts")
         },
         (error) => {
