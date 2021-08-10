@@ -114,7 +114,7 @@ const Home = () => {
               </div>
               <div className="client-img">
                 <img
-                  src={"https://img-premium.flaticon.com/png/512/1165/premium/1165674.png?token=exp=1628037988~hmac=71b9675a733cc5012155df786009cf8e"}
+                  src={"https://redmancreative.com/wp-content/uploads/2013/04/profile-image-circle.png"}
                   alt="Anonymous Donor"
                   width="50px"
                 />
@@ -132,7 +132,7 @@ const Home = () => {
               </div>
               <div className="client-img">
                 <img
-                  src={"https://img-premium.flaticon.com/png/512/2102/premium/2102647.png?token=exp=1628037850~hmac=10cca7789b573ad463365cf6684f0acf"}
+                  src={"https://cdn.smehost.net/theorchardcom-orchardprod/wp-content/uploads/2016/10/testimonial-profile-picture.png"}
                   alt="Anonymous Donor Recipient"
                   width="50px"
                 />
